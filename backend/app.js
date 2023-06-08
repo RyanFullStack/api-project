@@ -48,6 +48,15 @@ if (!isProduction) {
     })
   );
 
+
+  //BASIC WEB CONNECTION CHECK
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Connection Made!'
+    })
+  })
+
+
 //Import routes
 const routes = require('./routes');
 
