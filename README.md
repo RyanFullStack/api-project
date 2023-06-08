@@ -1,4 +1,4 @@
-# My AirBNB API Project
+# API Project
 
 ## Database Schema Design
 
