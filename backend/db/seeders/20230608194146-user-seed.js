@@ -5,14 +5,17 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+const { User } = require('../models')
 //IMPORT MODEL AND CHANGE TO BULK CREATE
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up(queryInterface, Sequelize) {
     options.tableName = 'Users';
-    return queryInterface.bulkInsert(options, [
+    options.validate = true;
+
+    await User.bulkCreate([
       {
         email: 'demo@user.io',
-        firstName: 'Demo',
+        firstName: '',
         lastName: 'lition',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password')
@@ -25,19 +28,19 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
-        email: 'user2@user.io',
+        email: 'userer.io',
         firstName: 'Fakie2',
         lastName: 'User2',
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password3')
       }
-    ], {});
+    ], options);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  async down(queryInterface, Sequelize) {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+    await queryInterface.bulkDelete(options, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
     }, {});
   }
