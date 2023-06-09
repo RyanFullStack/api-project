@@ -33,21 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     city: {
       type: DataTypes.STRING,
-      validate: {
-        isAlpha: true
-      }
     },
     state: {
       type: DataTypes.STRING,
-      validate: {
-        isAlpha: true
-      }
     },
     country: {
       type: DataTypes.STRING,
-      validate: {
-        isAlpha: true
-      }
     },
     lat: DataTypes.DECIMAL,
     lng: DataTypes.DECIMAL,
