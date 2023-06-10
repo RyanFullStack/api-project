@@ -43,8 +43,7 @@ router.post(
         err.title = 'Login failed';
         err.errors = { credential: 'The provided credentials were invalid.' };
         err.message = 'Invalid credentials';
-        // return next(err);
-        res.json({message: err.message})
+        return next(err);
       }
 
       const safeUser = {
