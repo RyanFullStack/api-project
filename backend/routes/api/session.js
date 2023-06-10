@@ -42,7 +42,9 @@ router.post(
         err.status = 401;
         err.title = 'Login failed';
         err.errors = { credential: 'The provided credentials were invalid.' };
-        return next(err);
+        err.message = 'Invalid credentials';
+        // return next(err);
+        res.json({message: err.message})
       }
 
       const safeUser = {
@@ -79,6 +81,8 @@ router.get(
       if (user) {
         const safeUser = {
           id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           username: user.username,
         };
