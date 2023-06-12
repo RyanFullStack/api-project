@@ -37,9 +37,46 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+const checkEmail = async(req, res, next) => {
+  const {email} = req.body
+
+  if (email) {
+  const useremail = await User.findAll({where: {email: email}})
+
+  if (useremail.length) {
+    const err = new Error()
+    err.errors = {email: "User with that email already exists"}
+    err.status = 500
+    err.message = "User already exists"
+    next(err)
+  }
+}
+  next()
+}
+
+const checkUser = async(req, res, next) => {
+  const {username} = req.body
+
+  if (username) {
+  const user = await User.findAll({where: {username: username}})
+
+  if (user.length) {
+    const err = new Error()
+    err.errors = {username: "User with that username already exists"}
+    err.status = 500
+    err.message = "User already exists"
+    next(err)
+  }
+}
+  next()
+}
+
+
 // Sign up
 router.post(
     '/',
+    checkEmail,
+    checkUser,
     validateSignup,
     async (req, res) => {
       const { firstName, lastName, email, password, username } = req.body;
