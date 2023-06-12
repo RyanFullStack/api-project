@@ -4,7 +4,7 @@ const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth')
 
-const { Spot , SpotImage, Review } = require('../../db/models');
+const { Spot , SpotImage, Review, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -34,6 +34,44 @@ router.get('/', async (req, res) => {
 
 
     res.json(newData)
+})
+
+
+router.get('/:spotId', async (req, res, next) => {
+
+    const spotData = await Spot.findByPk(req.params.spotId, {
+        include: [{model: SpotImage, attributes: ['id', 'url', 'preview']},{model:User}, {model:Review}]
+    })
+
+    if (!spotData) {
+        const err = new Error(`Spot couldn't be found`)
+        err.status = 404
+        next(err)
+    }
+
+    let sum = 0;
+    let count = 0;
+
+    const spotObj = spotData.toJSON()
+
+    spotObj.Reviews.forEach(review => {
+        sum += review.stars
+        count++
+    })
+
+    spotObj.Owner = {
+        id: spotObj.User.id,
+        firstName: spotObj.User.firstName,
+        lastName: spotObj.User.lastName
+    }
+
+    delete spotObj.User
+    delete spotObj.Reviews
+
+    spotObj.numReviews = count
+    spotObj.avgStarRating = sum / count
+
+    res.json(spotObj)
 })
 
 
@@ -92,7 +130,7 @@ router.put('/:spotId', requireAuth, spotChecker, async(req, res, next) => {
 
     if (!spot) {
         const err = new Error(`Spot couldn't be found`)
-        err.statusCode = 404
+        err.status = 404
         next(err)
     }
 
