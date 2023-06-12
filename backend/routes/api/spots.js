@@ -127,7 +127,7 @@ const spotChecker = (req, res, next) => {
 
     if (Object.keys(errors).length) {
         const err = new Error()
-        err.statusCode = 400
+        err.status = 400
         err.message = 'Bad Request'
         err.errors = errors
         next(err)
@@ -182,7 +182,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 
     } else {
         const err = new Error()
-        err.statusCode = 403
+        err.status = 403
         err.message = 'Forbidden'
         next(err)
     }
