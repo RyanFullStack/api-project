@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 })
 
 
-const updateSpotChecker = (req, res, next) => {
+const spotChecker = (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
     const errors = {}
@@ -64,7 +64,30 @@ const updateSpotChecker = (req, res, next) => {
     next()
 }
 
-router.put('/:spotId', requireAuth, updateSpotChecker, async(req, res, next) => {
+
+router.post('/', requireAuth, spotChecker, async(req, res) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    const newSpot = await Spot.create({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+    res.status(201)
+    res.json(newSpot)
+
+})
+
+
+
+router.put('/:spotId', requireAuth, spotChecker, async(req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
 
     if (!spot) {
