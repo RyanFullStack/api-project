@@ -22,7 +22,7 @@ router.delete('/:imageId', requireAuth, async(req, res, next) => {
         res.json({message: 'Successfully deleted'})
     } else {
         const err = new Error()
-        err.statusCode = 403
+        err.status = 403
         err.message = 'Forbidden'
         next(err)
     }

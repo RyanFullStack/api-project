@@ -64,9 +64,47 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
 
         res.json({id, url})
     }
+    else {
+        const err = new Error()
+        err.status = 403
+        err.message = 'Forbidden'
+        next(err)
+    }
+})
 
-    res.status(403)
-    res.json({message: 'Forbidden'})
+
+router.put('/:reviewId', requireAuth, async(req, res, next) => {
+    const foundReview = await Review.findByPk(req.params.reviewId)
+    if (!foundReview) {
+        const err = new Error(`Review couldn't be found`)
+        err.status = 404
+        next(err)
+    }
+
+    if (foundReview.userId === req.user.id) {
+        const { review, stars } = req.body
+        const errors = {}
+        if (!review) errors.review = 'Review text is required'
+        if (!stars || (stars < 1 || stars > 5)) errors.stars = 'Stars must be an integer from 1 to 5'
+        if (Object.keys(errors).length) {
+            const err = new Error()
+            err.message = 'Bad Request'
+            err.errors = errors
+            err.status = 400
+            next(err)
+        }
+        foundReview.review = review
+        foundReview.stars = stars
+
+        await foundReview.save()
+        res.json(foundReview)
+    }
+    else {
+        const err = new Error()
+        err.status = 403
+        err.message = 'Forbidden'
+        next(err)
+    }
 })
 
 

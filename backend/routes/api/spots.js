@@ -275,12 +275,12 @@ router.put('/:spotId', requireAuth, spotChecker, async(req, res, next) => {
     if (description) spot.description = description
     if (price) spot.price = price
 
-        await spot.save()
+    await spot.save()
     res.json(spot)
 
     } else {
         const err = new Error()
-        err.statusCode = 403
+        err.status = 403
         err.message = 'Forbidden'
         next(err)
     }
@@ -291,7 +291,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
     if (!spot) {
         const err = new Error(`Spot couldn't be found`)
-        err.statusCode = 404
+        err.status = 404
         next(err)
     }
 
@@ -302,7 +302,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     }
     else {
         const err = new Error()
-        err.statusCode = 403
+        err.status = 403
         err.message = 'Forbidden'
         next(err)
     }
