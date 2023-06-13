@@ -19,6 +19,8 @@ router.get('/', async (req, res) => {
 
         const spotobj = spot.toJSON()
 
+        spotobj.previewImage = 'No Images'
+
         spotobj.SpotImages.forEach(img => {
             spotobj.previewImage = img.url
         })
