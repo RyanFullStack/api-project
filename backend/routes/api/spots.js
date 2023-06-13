@@ -287,6 +287,74 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 })
 
 
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error(`Spot couldn't be found`)
+        err.status = 404
+        next(err)
+    }
+
+    if (spot.ownerId != req.user.id) {
+    const { startDate, endDate } = req.body
+    const errors = {}
+    if (!startDate) errors.startDate = 'Start Date must be provided'
+    if (!endDate) errors.endDate = 'End Date must be provided'
+    if (startDate && endDate && startDate > endDate) errors.endData = 'endDate cannot be on or before startDate'
+    if (Object.keys(errors).length) {
+        const err = new Error()
+        err.status = 400,
+        err.message = 'Bad Request'
+        err.errors = errors
+        next(err)
+    }
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+    if (bookings.length) {
+        bookings.forEach(booking => {
+            const bookingObj = booking.toJSON()
+            const errors = {}
+            console.log(bookingObj.startDate, bookingObj.endDate)
+            if (startDate >= bookingObj.startDate && startDate <= bookingObj.endDate) {
+                errors.startDate = 'Start date conflicts with an existing booking'
+            }
+            if (endDate <= bookingObj.endDate && endDate >= bookingObj.startDate) {
+                errors.endDate = 'End date conflicts with an existing booking'
+            }
+            if (Object.keys(errors).length) {
+                const err = new Error()
+                err.status = 403,
+                err.message = 'Sorry, this spot is already booked for the specified dates'
+                err.errors = errors
+                next(err)
+            }
+        })
+    }
+
+    const newBooking = await Booking.create({
+        spotId: req.params.spotId,
+        userId: req.user.id,
+        startDate,
+        endDate
+    })
+
+    res.json(newBooking)
+
+    } else {
+        const err = new Error('Spot must not belong to you')
+        err.status = 403
+        err.message = 'Spot belongs to you'
+        next(err)
+    }
+
+})
+
+
 router.put('/:spotId', requireAuth, spotChecker, async(req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
 
