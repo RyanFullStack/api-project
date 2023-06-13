@@ -4,7 +4,7 @@ const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth')
 
-const { Spot , SpotImage, Review, User, ReviewImage } = require('../../db/models');
+const { Spot , SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -83,6 +83,40 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         })
 
     res.json({Reviews: reviews})
+})
+
+
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+    if (!spot) {
+        const err = new Error(`Spot couldn't be found`)
+        err.status = 404
+        next(err)
+    }
+
+    if (spot.ownerId === req.user.id) {
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            include: {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        })
+        res.json({Bookings: bookings})
+    } else {
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        attributes: ['spotId', 'startDate', 'endDate']
+    })
+
+    res.json({Bookings: bookings})
+}
+
 })
 
 
