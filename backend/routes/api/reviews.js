@@ -30,7 +30,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     })
 
 
-    res.json(newData)
+    res.json({Reviews: newData})
 })
 
 
