@@ -10,5 +10,5 @@ const router = express.Router();
 
 
 router.get('/current', requireAuth, async (req, res) => {
-    
+    res.json('Success')
 })
