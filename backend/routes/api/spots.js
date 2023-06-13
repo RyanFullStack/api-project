@@ -301,6 +301,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const errors = {}
     if (!startDate) errors.startDate = 'Start Date must be provided'
     if (!endDate) errors.endDate = 'End Date must be provided'
+    if (startDate < new Date().toISOString().split('T')[0] || endDate < new Date().toISOString().split('T')[0]) {
+        errors.past = 'Date cannot be in the past'
+    }
     if (startDate && endDate && startDate > endDate) errors.endData = 'endDate cannot be on or before startDate'
     if (Object.keys(errors).length) {
         const err = new Error()
