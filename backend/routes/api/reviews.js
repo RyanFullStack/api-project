@@ -7,8 +7,3 @@ const { requireAuth } = require('../../utils/auth')
 const { Spot , SpotImage, Review, User } = require('../../db/models');
 
 const router = express.Router();
-
-
-router.get('/current', requireAuth, async (req, res) => {
-    res.json('Success')
-})
