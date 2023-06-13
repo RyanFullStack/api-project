@@ -1,45 +1,41 @@
 const express = require('express');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth')
 
-const { Spot , SpotImage, Review, User, ReviewImage, Booking} = require('../../db/models');
-const booking = require('../../db/models/booking');
+const { Spot, SpotImage, Booking } = require('../../db/models');
 
 const router = express.Router();
 
 router.get('/current', requireAuth, async (req, res, next) => {
     const bookings = await Booking.findAll({
-        where: {userId: req.user.id},
-        include: {model: Spot, attributes: {exclude: ['createdAt', 'updatedAt', 'description']}, include: {model: SpotImage}}
+        where: { userId: req.user.id },
+        include: { model: Spot, attributes: { exclude: ['createdAt', 'updatedAt', 'description'] }, include: { model: SpotImage } }
     })
 
     const newData = bookings.map(spot => {
         const spotObj = spot.toJSON()
 
         if (spotObj.Spot) {
-        spotObj.Spot.previewImage = 'No Images'
+            spotObj.Spot.previewImage = 'No Images'
 
 
-        spotObj.Spot.SpotImages.forEach(img => {
-            spotObj.Spot.previewImage = img.url
-        })
-        delete spotObj.Spot.SpotImages
-        return spotObj
-    }
+            spotObj.Spot.SpotImages.forEach(img => {
+                spotObj.Spot.previewImage = img.url
+            })
+            delete spotObj.Spot.SpotImages
+            return spotObj
+        }
     })
 
-
-    res.json(newData)
+    return res.json(newData)
 })
 
-router.put('/:bookingId', requireAuth, async(req, res, next) => {
+router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const foundBooking = await Booking.findByPk(req.params.bookingId)
     if (!foundBooking) {
         const err = new Error(`Booking couldn't be found`)
         err.status = 404
-        next(err)
+        return next(err)
     }
 
     if (foundBooking.endDate < new Date().toISOString().split('T')[0]) {
@@ -60,7 +56,7 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         if (Object.keys(errors).length) {
             const err = new Error()
             err.status = 400,
-            err.message = 'Bad Request'
+                err.message = 'Bad Request'
             err.errors = errors
             return next(err)
         }
@@ -79,19 +75,20 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
                 const errors = {}
 
                 if (booking.userId !== req.user.id) {
-                if (startDate >= bookingObj.startDate && startDate <= bookingObj.endDate) {
-                    errors.startDate = 'Start date conflicts with an existing booking'
+                    if (startDate >= bookingObj.startDate && startDate <= bookingObj.endDate) {
+                        errors.startDate = 'Start date conflicts with an existing booking'
+                    }
+                    if (endDate <= bookingObj.endDate && endDate >= bookingObj.startDate) {
+                        errors.endDate = 'End date conflicts with an existing booking'
+                    }
+                    if (Object.keys(errors).length) {
+                        err = new Error()
+                        err.status = 403,
+                            err.message = 'Sorry, this spot is already booked for the specified dates'
+                        err.errors = errors
+                        conflict = true
+                    }
                 }
-                if (endDate <= bookingObj.endDate && endDate >= bookingObj.startDate) {
-                    errors.endDate = 'End date conflicts with an existing booking'
-                }
-                if (Object.keys(errors).length) {
-                    err = new Error()
-                    err.status = 403,
-                    err.message = 'Sorry, this spot is already booked for the specified dates'
-                    err.errors = errors
-                    conflict = true
-                }}
             })
             if (conflict) {
                 return next(err);
@@ -103,13 +100,38 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
 
         await foundBooking.save()
 
-        res.json(foundBooking)
+        return res.json(foundBooking)
     }
     else {
         const err = new Error()
         err.status = 403
         err.message = 'Forbidden'
-        next(err)
+        return next(err)
+    }
+
+})
+
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+    const foundBooking = await Booking.findByPk(req.params.bookingId)
+    if (!foundBooking) {
+        const err = new Error(`Booking couldn't be found`)
+        err.status = 404
+        return next(err)
+    }
+    if (foundBooking.startDate < new Date().toISOString().split('T')[0]) {
+        const err = new Error(`Bookings that have been started can't be deleted`)
+        err.status = 403
+        return next(err)
+    }
+    if (foundBooking.userId === req.user.id) {
+        await foundBooking.destroy()
+        return res.json({ message: 'Successfully deleted' })
+    }
+    else {
+        const err = new Error()
+        err.status = 403
+        err.message = 'Forbidden'
+        return next(err)
     }
 
 })

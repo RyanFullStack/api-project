@@ -12,11 +12,11 @@ const router = express.Router();
 const validateSignup = [
   check('firstName')
     .exists()
-    .isLength({min: 2})
+    .isLength({ min: 2 })
     .withMessage('Please enter a first name.'),
   check('lastName')
     .exists()
-    .isLength({min: 2})
+    .isLength({ min: 2 })
     .withMessage('Please enter a last name.'),
   check('email')
     .exists({ checkFalsy: true })
@@ -37,67 +37,67 @@ const validateSignup = [
   handleValidationErrors
 ];
 
-const checkEmail = async(req, res, next) => {
-  const {email} = req.body
+const checkEmail = async (req, res, next) => {
+  const { email } = req.body
 
   if (email) {
-  const useremail = await User.findAll({where: {email: email}})
+    const useremail = await User.findAll({ where: { email: email } })
 
-  if (useremail.length) {
-    const err = new Error()
-    err.errors = {email: "User with that email already exists"}
-    err.status = 500
-    err.message = "User already exists"
-    next(err)
+    if (useremail.length) {
+      const err = new Error()
+      err.errors = { email: "User with that email already exists" }
+      err.status = 500
+      err.message = "User already exists"
+      return next(err)
+    }
   }
-}
-  next()
+  return next()
 }
 
-const checkUser = async(req, res, next) => {
-  const {username} = req.body
+const checkUser = async (req, res, next) => {
+  const { username } = req.body
 
   if (username) {
-  const user = await User.findAll({where: {username: username}})
+    const user = await User.findAll({ where: { username: username } })
 
-  if (user.length) {
-    const err = new Error()
-    err.errors = {username: "User with that username already exists"}
-    err.status = 500
-    err.message = "User already exists"
-    next(err)
+    if (user.length) {
+      const err = new Error()
+      err.errors = { username: "User with that username already exists" }
+      err.status = 500
+      err.message = "User already exists"
+      return next(err)
+    }
   }
-}
-  next()
+  return next()
 }
 
 
 // Sign up
 router.post(
-    '/',
-    checkEmail,
-    checkUser,
-    validateSignup,
-    async (req, res) => {
-      const { firstName, lastName, email, password, username } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ firstName, lastName, email, username, hashedPassword });
+  '/',
+  checkEmail,
+  checkUser,
+  validateSignup,
+  async (req, res) => {
+    const { firstName, lastName, email, password, username } = req.body;
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({ firstName, lastName, email, username, hashedPassword });
 
-      const safeUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        username: user.username,
-      };
+    const safeUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    };
 
-      setTokenCookie(res, safeUser);
+    setTokenCookie(res, safeUser);
 
-      return res.json({
-        user: safeUser
-      });
-    }
-  );
+    return res.json({
+      user: safeUser
+    });
+  }
+);
 
 
 
