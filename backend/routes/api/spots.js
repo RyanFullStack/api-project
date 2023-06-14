@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
     })
 
 
-    return res.json(newData)
+    return res.json({Spots: newData})
 })
 
 
