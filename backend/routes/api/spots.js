@@ -4,11 +4,61 @@ const { requireAuth } = require('../../utils/auth')
 
 const { Spot, SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 
+const { Op, DECIMAL } = require('sequelize')
+
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
+
+    const errors = {}
+
+    if (page && (Number(page) != page)) errors.page = 'Page must be greater than or equal to 1'
+    if (size && (Number(size) != size)) errors.size = 'Size must be greater than or equal to 1'
+    if (minLat < -90 || minLat > 90) errors.minLat = 'Minimum latitude is invalid'
+    if (maxLat < -90 || maxLat > 90) errors.maxLat = 'Maximum latitude is invalid'
+    if (minLng < -180 || minLng > 180) errors.minLng = 'Minimum longitude is invalid'
+    if (maxLng < -180 || maxLng > 180) errors.maxLng = 'Maximum longitude is invalid'
+    if (minPrice < 0) errors.minPrice = 'Minimum price must be greater than or equal to 0'
+    if (maxPrice < 0) errors.maxPrice = 'Maximum price must be greater than or equal to 0'
+
+    if (Object.keys(errors).length) {
+    const err = new Error()
+    err.status = 400
+    err.message = 'Bad Request'
+    err.errors = errors
+    return next(err)
+    }
+
+    if (!page || (page < 1 || page > 10)) page = 1;
+    if (!size || (size < 1 || size > 20)) size = 20;
+
+    page = parseInt(page);
+    size = parseInt(size);
+
+    const pagination = {};
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    }
+
+    const where = {}
+
+    if (minLat) where.lat = {[Op.gte]: minLat}
+    if (maxLat) where.lat = {[Op.lte]: maxLat}
+    if (minLat && maxLat) where.lat = {[Op.between]: [minLat, maxLat]}
+    if (minLng) where.lng = {[Op.gte]: minLng}
+    if (maxLng) where.lng = {[Op.lte]: maxLng}
+    if (minLng && maxLng) where.lng = {[Op.between]: [minLng, maxLng]}
+    if (minPrice) where.price = {[Op.gte]: minPrice}
+    if (maxPrice) where.price = {[Op.lte]: maxPrice}
+    if (minPrice && maxPrice) where.price = {[Op.between]: [minPrice, maxPrice]}
+
+
     const spotsData = await Spot.findAll({
-        include: [{ model: SpotImage, attributes: ['url'] }, { model: Review, attributes: ['stars'] }]
+        include: [{ model: SpotImage, attributes: ['url'] }, { model: Review, attributes: ['stars'] }],
+        where,
+        ...pagination
     })
 
     const newData = spotsData.map(spot => {
@@ -33,7 +83,7 @@ router.get('/', async (req, res) => {
     })
 
 
-    return res.json({Spots: newData})
+    return res.json({Spots: newData, page, size})
 })
 
 
