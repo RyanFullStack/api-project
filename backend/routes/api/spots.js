@@ -307,7 +307,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         if (Object.keys(errors).length) {
             const err = new Error()
             err.status = 400,
-                err.message = 'Bad Request'
+            err.message = 'Bad Request'
             err.errors = errors
             return next(err)
         }
