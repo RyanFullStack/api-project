@@ -261,8 +261,8 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
+    if (spot.ownerId != req.user.id) {
     const { review, stars } = req.body
-
     const errors = {}
     if (!review) errors.review = 'Review text is required'
     if (stars < 1 || stars > 5) errors.stars = 'Stars must be an integer from 1 to 5'
@@ -282,6 +282,12 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     })
     res.status(201)
     return res.json(newReview)
+    } else {
+        const err = new Error(`Can't review your own spot`)
+        err.status = 403
+        err.message = 'Spot belongs to you'
+        return next(err)
+    }
 
 })
 
