@@ -324,6 +324,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 spotId: req.params.spotId
             }
         })
+        let conflict = false;
         if (bookings.length) {
             bookings.forEach(booking => {
                 const bookingObj = booking.toJSON()
@@ -331,20 +332,22 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 console.log(bookingObj.startDate, bookingObj.endDate)
                 if (startDate >= bookingObj.startDate && startDate <= bookingObj.endDate) {
                     errors.startDate = 'Start date conflicts with an existing booking'
+                    conflict = true
                 }
                 if (endDate <= bookingObj.endDate && endDate >= bookingObj.startDate) {
                     errors.endDate = 'End date conflicts with an existing booking'
+                    conflict = true
                 }
-                if (Object.keys(errors).length) {
+                if (conflict) {
                     const err = new Error()
                     err.status = 403,
-                        err.message = 'Sorry, this spot is already booked for the specified dates'
+                    err.message = 'Sorry, this spot is already booked for the specified dates'
                     err.errors = errors
                     return next(err)
                 }
             })
         }
-
+        if (!conflict) {
         const newBooking = await Booking.create({
             spotId: req.params.spotId,
             userId: req.user.id,
@@ -353,6 +356,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         })
 
         return res.json(newBooking)
+    }
 
     } else {
         const err = new Error('Spot must not belong to you')
