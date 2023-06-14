@@ -283,7 +283,8 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     res.status(201)
     return res.json(newReview)
     } else {
-        const err = new Error(`Can't review your own spot`)
+        const err = new Error()
+        err.title = `Can't review your own spot`
         err.status = 403
         err.message = 'Spot belongs to you'
         return next(err)
