@@ -329,7 +329,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             bookings.forEach(booking => {
                 const bookingObj = booking.toJSON()
                 const errors = {}
-                console.log(bookingObj.startDate, bookingObj.endDate)
+
                 if (startDate >= bookingObj.startDate && startDate <= bookingObj.endDate) {
                     errors.startDate = 'Start date conflicts with an existing booking'
                     conflict = true
