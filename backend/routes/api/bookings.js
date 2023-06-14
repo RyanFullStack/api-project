@@ -27,7 +27,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         }
     })
 
-    return res.json(newData)
+    return res.json({Bookings: newData})
 })
 
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
