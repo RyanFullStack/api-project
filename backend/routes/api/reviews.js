@@ -52,6 +52,18 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
     if (review.userId === req.user.id) {
         const { url } = req.body
+        const errors = {}
+
+    if (!url) errors.url = 'Url must be provided!'
+
+    if (Object.keys(errors).length) {
+        const err = new Error()
+        err.status = 400
+        err.message = 'Bad Request'
+        err.errors = errors
+        return next(err)
+    }
+
         const newReviewImage = await ReviewImage.create({
             reviewId: req.params.reviewId,
             url

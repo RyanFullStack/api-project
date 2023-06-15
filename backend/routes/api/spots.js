@@ -269,6 +269,18 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     }
 
     const { url, preview } = req.body
+    const errors = {}
+
+    if (!url) errors.url = 'Url must be provided!'
+    if (!preview) preview = 'Preview must be true or false'
+
+    if (Object.keys(errors).length) {
+        const err = new Error()
+        err.status = 400
+        err.message = 'Bad Request'
+        err.errors = errors
+        return next(err)
+    }
 
     if (spot.ownerId === req.user.id) {
         const newSpotImage = await SpotImage.create({
