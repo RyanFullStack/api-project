@@ -217,6 +217,8 @@ const spotChecker = (req, res, next) => {
     if (!city) errors.city = 'City address is required'
     if (!state) errors.state = 'State address is required'
     if (!country) errors.country = 'Country address is required'
+    if (!lat) errors.address;at = 'Latitude is required'
+    if (!lng) errors.address;at = 'Longitude is required'
     if (lat < -90 || lat > 90) errors.lat = 'Latitude is not valid'
     if (lng < -180 || lng > 180) errors.lng = 'Longitude is not valid'
     if (!name) errors.name = 'Name is required'
