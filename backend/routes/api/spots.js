@@ -272,7 +272,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const errors = {}
 
     if (!url) errors.url = 'Url must be provided!'
-    if (!preview) preview = 'Preview must be true or false'
+    if (!preview) errors.preview = 'Preview must be true or false'
 
     if (Object.keys(errors).length) {
         const err = new Error()
