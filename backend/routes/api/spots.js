@@ -217,10 +217,10 @@ const spotChecker = (req, res, next) => {
     if (!city) errors.city = 'City address is required'
     if (!state) errors.state = 'State address is required'
     if (!country) errors.country = 'Country address is required'
-    if (lat < -90 || lat > 90) errors.lat = 'Latitude is not valid'
-    if (lng < -180 || lng > 180) errors.lng = 'Longitude is not valid'
+    if (lat && (lat < -90 || lat > 90)) errors.lat = 'Latitude is not valid'
+    if (lng && (lng < -180 || lng > 180)) errors.lng = 'Longitude is not valid'
     if (!name) errors.name = 'Name is required'
-    if (name.length > 50) errors.name = 'Name must be less than 50 characters'
+    if (name && name.length > 50) errors.name = 'Name must be less than 50 characters'
     if (!description) errors.description = 'Description is required'
     if (!price) errors.price = 'Price per day is required'
 
