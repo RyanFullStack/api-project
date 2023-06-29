@@ -1,0 +1,54 @@
+import { csrfFetch } from "./csrf"
+
+export const START_SESSION = 'session/ADD'
+export const END_SESSION = 'session/END'
+
+export const startSession = (user) => {
+    return {
+        type: START_SESSION,
+        user
+    }
+}
+
+export const endSession = (user) => {
+    return {
+        type: END_SESSION,
+        user
+    }
+}
+
+export const thunkStartSession = (user) => async (dispatch) => {
+    const { credential, password } = user;
+    const res = await csrfFetch("/api/session", {
+        method: "POST",
+        body: JSON.stringify({
+            credential,
+            password,
+        }),
+    });
+    const data = await res.json();
+    dispatch(startSession(data.user));
+    return res;
+}
+
+const initialState = { user: null };
+
+const sessionReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case START_SESSION: {
+            const newState = {...state}
+            newState.user = action.payload
+            return newState
+        }
+        case END_SESSION: {
+            const newState = {...state}
+            newState.user = null;
+            return newState
+        }
+
+        default:
+            return state;
+    }
+}
+
+export default sessionReducer;
