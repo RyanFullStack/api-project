@@ -31,13 +31,21 @@ export const thunkStartSession = (user) => async (dispatch) => {
     return res;
 }
 
+export const restoreUser = () => async (dispatch) => {
+    const response = await csrfFetch("/api/session");
+    const data = await response.json();
+    dispatch(startSession(data.user));
+    return response;
+  };
+
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case START_SESSION: {
             const newState = {...state}
-            newState.user = action.payload
+            newState.user = action.user
             return newState
         }
         case END_SESSION: {
