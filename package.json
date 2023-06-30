@@ -8,8 +8,8 @@
     "dev:backend": "npm install --prefix backend start",
     "sequelize": "npm run --prefix backend sequelize",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
-    "start": "npm start --prefix backend",
-    "build": "npm run --prefix backend build"
+    "start": "npm start backend && npm start frontend",
+    "build": "npm run backend build && npm run frontend build"
   },
   "repository": {
     "type": "git",
