@@ -1,4 +1,4 @@
-# API Project
+# Sleep-Me Project
 
 ## Database Schema Design
 
