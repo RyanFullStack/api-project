@@ -49,18 +49,18 @@ app.use(
 );
 
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Connection Made!'
-  })
-})
-
 //Import routes
 const routes = require('./routes');
 
 //Connect routes
 app.use(routes);
 
+
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Connection Made!'
+  })
+})
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
