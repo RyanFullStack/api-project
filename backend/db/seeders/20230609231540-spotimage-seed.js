@@ -14,28 +14,28 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: '/spots/1.jpg',
-        preview: false
+        url: 'https://www.fallonchamber.com/wp-content/uploads/2019/10/FallonTheatreLogo.png',
+        preview: true
       },
       {
         spotId: 2,
-        url: '/spots/2.jpg',
-        preview: false
+        url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2021/09/1200/675/statue-of-liberty-1.jpg',
+        preview: true
       },
       {
         spotId: 3,
-        url: '/spots/3.jpg',
-        preview: false
+        url: 'https://cdn.britannica.com/30/94430-050-D0FC51CD/Niagara-Falls.jpg',
+        preview: true
       },
       {
         spotId: 4,
-        url: '/spots/4/jpg',
-        preview: false
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg',
+        preview: true
       },
       {
         spotId: 5,
-        url: '/spots/5/jpg',
-        preview: false
+        url: 'https://www.spaceneedle.com/imager/assets/2113/az190903-0590_3a41f671e85a5cdee99cc1724d904ba9.jpg',
+        preview: true
       }
     ], options);
   },

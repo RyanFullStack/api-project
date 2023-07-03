@@ -14,23 +14,23 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: '/reviews/1.jpg'
+        url: 'https://worldstrides.com/wp-content/uploads/2015/07/Day-2_Golden_Statue-min.jpg'
       },
       {
         reviewId: 2,
-        url: '/reviews/2.jpg'
+        url: 'https://basictravelcouple.com/wp-content/uploads/2022/03/Niagara-Falls-Basic-Travel-Couple-scaled.jpg'
       },
       {
         reviewId: 3,
-        url: '/reviews/3.jpg'
+        url: 'https://thefallontheatre.wildapricot.org/resources/Slideshow/2theatre.jpg'
       },
       {
         reviewId: 4,
-        url: '/reviews/4.jpg'
+        url: 'https://media.tacdn.com/media/attractions-content--1x-1/0f/ef/86/68.jpg'
       },
       {
         reviewId: 5,
-        url: '/reviews/5.jpg'
+        url: 'https://feastio.com/wp-content/uploads/2022/03/Kel-at-Loupe-Lounge.jpg'
       },
     ], options);
   },
