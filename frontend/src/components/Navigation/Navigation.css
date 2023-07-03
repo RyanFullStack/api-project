@@ -1,3 +1,28 @@
 .hidden {
     display: none;
 }
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    width: 95vw;
+    height: 12vh;
+    justify-content: space-between;
+}
+
+ul {
+    list-style: none;
+}
+
+li a {
+    text-decoration: none;
+    font-size: calc(10px + 2vmin);
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 6px black;
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 5%;
+    left: auto;
+}

@@ -1,0 +1,17 @@
+.spot-card{
+    height: 250px;
+    width: 250px;
+}
+.spot-image{
+    height: 200px;
+    width: 250px;
+}
+.spot-card{
+    display: flex;
+    flex-direction: column;
+}
+.spot-locationrating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

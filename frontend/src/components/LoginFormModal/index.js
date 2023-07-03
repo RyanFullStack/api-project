@@ -24,6 +24,11 @@ function LoginFormModal() {
       });
   };
 
+  const demoLogin = () => {
+    return dispatch(sessionActions.thunkStartSession({credential: 'ReedE', password: 'password1'}))
+    .then(closeModal)
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -51,6 +56,7 @@ function LoginFormModal() {
         )}
         <button type="submit">Log In</button>
       </form>
+      <button onClick={demoLogin}>Demo Login</button>
     </>
   );
 }

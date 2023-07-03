@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import Spots from "./components/Spots";
+import './index.css'
 
 function App() {
   const dispatch = useDispatch();
@@ -12,10 +14,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && <Switch></Switch>}
-    </>
+    <div className="wholepage">
+      <div className="header"><Navigation isLoaded={isLoaded} />
+      {isLoaded && <Switch></Switch>}</div>
+      <div className="spots"><Spots /></div>
+      </div>
   );
 }
 
