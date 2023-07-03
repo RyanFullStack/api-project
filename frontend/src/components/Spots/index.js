@@ -11,7 +11,7 @@ function Spots() {
 
     useEffect(() => {
         dispatch(thunkGetAllSpots())
-    }, [dispatch, spotsArr])
+    }, [dispatch, allSpots])
 
 
     return (
