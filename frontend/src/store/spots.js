@@ -22,6 +22,13 @@ export const thunkGetAllSpots = () => async (dispatch) => {
     return data;
 }
 
+export const thunkGetSingleSpot = (spotId) => async (dispatch) => {
+    const res = await fetch(`/api/spots/${spotId}`)
+    const data = await res.json()
+    dispatch(getSingleSpot(data))
+    return data;
+}
+
 
 const initialState = {
     allSpots: {},
@@ -35,6 +42,11 @@ const spotReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
+            return newState
+        }
+        case GET_SINGLE_SPOT: {
+            const newState = {...state}
+            newState.singleSpot = action.spot
             return newState
         }
         default:

@@ -43,7 +43,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        Menu <i className="fas fa-user-circle"></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -57,6 +57,7 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
+          <div className="menu">
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
@@ -67,6 +68,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            </div>
           </>
         )}
       </ul>

@@ -19,10 +19,17 @@ li a {
     font-size: calc(10px + 2vmin);
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 6px black;
+    cursor: pointer;
 }
 
 .profile-dropdown {
     position: absolute;
     right: 5%;
     left: auto;
+}
+button {
+    cursor: pointer;
+}
+.menu {
+    cursor: pointer;
 }
