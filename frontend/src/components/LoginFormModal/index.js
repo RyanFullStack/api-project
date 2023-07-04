@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom'
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -6,6 +7,7 @@ import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -30,7 +32,7 @@ useEffect(() => {
     e.preventDefault();
     setErrors({});
     return dispatch(sessionActions.thunkStartSession({ credential, password }))
-      .then(closeModal).then(window.location.assign('/'))
+      .then(closeModal).then(history.push('/'))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -42,7 +44,7 @@ useEffect(() => {
   const demoLogin = () => {
     dispatch(sessionActions.thunkStartSession({credential: 'ReedE', password: 'password1'}))
     closeModal()
-    window.location.assign('/')
+    history.push('/')
   }
 
   return (
