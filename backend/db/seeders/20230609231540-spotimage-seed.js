@@ -14,11 +14,6 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'https://www.fallonchamber.com/wp-content/uploads/2019/10/FallonTheatreLogo.png',
-        preview: true
-      },
-      {
-        spotId: 1,
         url: 'https://www.churchillarts.org/_imgs/oatsparkartcenter/BarkleyTheatre.jpg',
         preview: false
       },
@@ -38,8 +33,8 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 2,
-        url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2021/09/1200/675/statue-of-liberty-1.jpg',
+        spotId: 1,
+        url: 'https://www.fallonchamber.com/wp-content/uploads/2019/10/FallonTheatreLogo.png',
         preview: true
       },
       {
@@ -63,8 +58,8 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 3,
-        url: 'https://cdn.britannica.com/30/94430-050-D0FC51CD/Niagara-Falls.jpg',
+        spotId: 2,
+        url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2021/09/1200/675/statue-of-liberty-1.jpg',
         preview: true
       },
       {
@@ -88,8 +83,8 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 4,
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg',
+        spotId: 3,
+        url: 'https://cdn.britannica.com/30/94430-050-D0FC51CD/Niagara-Falls.jpg',
         preview: true
       },
       {
@@ -113,8 +108,8 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 5,
-        url: 'https://www.spaceneedle.com/imager/assets/2113/az190903-0590_3a41f671e85a5cdee99cc1724d904ba9.jpg',
+        spotId: 4,
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg',
         preview: true
       },
       {
@@ -136,6 +131,11 @@ module.exports = {
         spotId: 5,
         url: 'https://www.spaceneedle.com/assets/_1200x630_crop_center-center_82_none/LoungeHeader1800x800.jpg?mtime=1623445731',
         preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://www.spaceneedle.com/imager/assets/2113/az190903-0590_3a41f671e85a5cdee99cc1724d904ba9.jpg',
+        preview: true
       }
     ], options);
   },
