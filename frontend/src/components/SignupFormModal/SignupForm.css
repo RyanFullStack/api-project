@@ -7,8 +7,9 @@
     align-items: center;
 }
 .formbutton {
-    background-color: rgb(196, 246, 255);
-    border: 1px solid white;
+    background-color: rgb(67, 239, 252);
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 3px 3px 5px black;
     border-radius: 6px;
     margin: 5px;
     cursor: pointer;

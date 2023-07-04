@@ -25,6 +25,10 @@ function SpotDetail() {
 
     const spotImages = spot?.SpotImages ?? [];
     const url = spotImages[0]?.url;
+    const url2 = spotImages[1]?.url;
+    const url3 = spotImages[2]?.url;
+    const url4 = spotImages[3]?.url;
+    const url5 = spotImages[4]?.url;
     const owner = spot?.Owner ?? {};
     const firstName = owner.firstName ?? "";
     const lastName = owner.lastName ?? "";
@@ -36,15 +40,39 @@ function SpotDetail() {
     return (
         <div className="spot-details-container">
             <div className="spot-details-title">
-                <div>{spot.name}</div>
-                <div>{spot.city}, {spot.state}, {spot.country}</div>
+                <div id='spot-name'>{spot.name}</div>
+                <div id="spot-location">{spot.city}, {spot.state}, {spot.country}</div>
             </div>
             <div className="spot-details-images">
+                <div className="spot-main-image">
                 {url ? (
                     <img src={url} alt={spot.name} />
                 ) : (
                     <div>Loading image...</div>
                 )}
+                </div>
+                <div className="spot-images">
+                {url ? (
+                    <img src={url2} alt={spot.name} />
+                ) : (
+                    <div>Loading image...</div>
+                )}
+                {url2 ? (
+                    <img src={url3} alt={spot.name} />
+                ) : (
+                    <div>Loading image...</div>
+                )}
+                {url3 ? (
+                    <img src={url4} alt={spot.name} />
+                ) : (
+                    <div>Loading image...</div>
+                )}
+                {url4 ? (
+                    <img src={url5} alt={spot.name} />
+                ) : (
+                    <div>Loading image...</div>
+                )}
+                </div>
             </div>
             <div className="spot-detail-info">
                 <div className="spot-detail-left">
@@ -57,17 +85,17 @@ function SpotDetail() {
                     <div className="spot-book-box">
                         <div className="spot-price">
                             <div className="price">
-                                ${price}/night
+                                <span>${price}</span> / night
                             </div>
                             <div className="star-review">
-                                <i className="fa-solid fa-star" key={spot.id}></i>{avgStarRating.toFixed(1)}
-                                <div className="num-review">
-                                    {numReviews} Reviews
-                                </div>
+                                <i className="fa-solid fa-star" key={spot.id}></i><span>{avgStarRating.toFixed(1)}</span>
                             </div>
+                                <div className="num-review">
+                                <span>{numReviews}</span> Reviews
+                                </div>
                         </div>
                         <div className="spot-reserve">
-                            <button>Reserve</button>
+                            <button id='reserve'>Reserve</button>
                         </div>
                     </div>
                 </div>

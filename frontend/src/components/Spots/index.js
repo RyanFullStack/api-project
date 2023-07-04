@@ -34,9 +34,9 @@ function Spots() {
                         <div key={spot.id}><img alt={spot.name} src={spot.previewImage} className="spot-image" key={spot.id}/></div>
                         <div className="spot-locationrating" >
                             <div>{spot.city}, {spot.state}</div>
-                            <div><i className="fa-solid fa-star" key={spot.id}></i>{spot.avgRating.toFixed(1)}</div>
+                            <div><i className="fa-solid fa-star" key={spot.id}></i><span>{spot.avgRating.toFixed(1)}</span></div>
                         </div>
-                        <div className="spot-price">${spot.price} / night</div>
+                        <div className="spot-price"><span>${spot.price}</span> / night</div>
                     </div>
                     </Link>
                 )

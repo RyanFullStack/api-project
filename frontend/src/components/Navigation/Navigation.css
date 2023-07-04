@@ -37,13 +37,36 @@ li a {
     background: linear-gradient(0deg, rgba(255, 232, 155, 1) 0%, rgba(255, 255, 255, 1) 80%);
     border: 2px solid rgb(0, 216, 245);
 }
+.menubutton:hover {
+    background: rgb(255, 244, 207);
+}
 
-.menu {
+.menu{
+    text-align: right;
     cursor: pointer;
-    background-color: rgba(252, 237, 196, .7);
+    background-color: rgba(209, 252, 255, 0.7);
     width: 70px;
     padding: 5px;
     border-radius: 10px;
+}
+.menu-loggedin{
+    text-align: right;
+    cursor: pointer;
+    background-color: rgba(209, 252, 255, 0.7);
+    width: auto;
+    padding: 5px;
+    border-radius: 10px;
+}
+#logout {
+    margin-top: 10px;
+    height: 30px;
+    width: 100px;
+    border-radius: 8px;
+    border: 1px solid black;
+    background-color: rgb(132, 244, 252);;
+}
+#logout:hover {
+    background-color: rgb(255, 196, 196);
 }
 
 #logo {

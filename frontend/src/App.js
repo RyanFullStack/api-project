@@ -17,20 +17,20 @@ function App() {
 
   return (
     <BrowserRouter>
-    <div className="wholepage">
-      <div className="header"><Navigation isLoaded={isLoaded} />
-      {isLoaded && <Switch></Switch>}</div>
+      <div className="wholepage">
+        <div className="header"><Navigation isLoaded={isLoaded} />
+          {isLoaded && <Switch></Switch>}</div>
+        <Switch>
+          <Route exact path='/'>
+            <div className="spots"><Spots /></div>
+          </Route>
 
-      <Route exact path='/'>
-      <div className="spots"><Spots /></div>
-      </Route>
-
-      <Route path='/spots/:spotId'>
-      <div className='spot-detail'><SpotDetail /></div>
-      </Route>
-
+          <Route path='/spots/:spotId'>
+            <div className='spot-detail'><SpotDetail /></div>
+          </Route>
+        </Switch>
       </div>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

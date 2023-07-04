@@ -1,14 +1,77 @@
 .spot-details-container {
-    margin: 1vh 2vw;
+    margin: 2vh 2vw;
     display: flex;
     flex-direction: column;
-    width: 96%;
+    width: 100vw;
 }
-.spot-details-images img{
+.spot-details-images {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.spot-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 400px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+.spot-main-image img{
     width: 500px;
     height: 400px;
+}
+.spot-images img {
+    width: 350px;
+    height: 195px;
 }
 a {
     text-decoration: none;
     color: inherit;
+}
+#spot-name {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#spot-location {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.spot-detail-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1230px;
+}
+.spot-host {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.spot-book-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    height: 80px;
+    padding: 15px;
+}
+.spot-price {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.star-review {
+    display: flex;
+    flex-direction: row;
+}
+#reserve {
+    height: 40px;
+    width: 300px;
+    margin-top: 10px;
+    box-shadow: 5px 5px 5px black;
+    cursor: pointer;
+    background-color: rgb(127, 255, 249);
+}
+#reserve:hover {
+    background-color: rgb(253, 102, 102);
 }

@@ -69,9 +69,10 @@ router.get('/', async (req, res, next) => {
 
         spotobj.previewImage = 'No Images'
 
-        spotobj.SpotImages.forEach(img => {
-            spotobj.previewImage = img.url
-        })
+        if (spotobj.SpotImages) {
+            spotobj.previewImage = spotobj.SpotImages[0].url
+        }
+
         spotobj.Reviews.forEach(review => {
             sum += review.stars
             count++
