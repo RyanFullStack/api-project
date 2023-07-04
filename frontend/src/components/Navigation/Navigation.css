@@ -27,9 +27,25 @@ li a {
     right: 5%;
     left: auto;
 }
-button {
+
+.menubutton {
     cursor: pointer;
+    height: 40px;
+    width: 80px;
+    border-radius: 15px;
+    background: rgb(255, 232, 155);
+    background: linear-gradient(0deg, rgba(255, 232, 155, 1) 0%, rgba(255, 255, 255, 1) 80%);
+    border: 2px solid rgb(0, 216, 245);
 }
+
 .menu {
     cursor: pointer;
+    background-color: rgba(252, 237, 196, .7);
+    width: 70px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#logo {
+    height: 8vh;
 }

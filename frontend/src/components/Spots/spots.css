@@ -1,17 +1,16 @@
-.spot-card{
+.spot-card {
+    flex: 0 0 25%;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 300px;
+}
+
+.spot-image {
     height: 250px;
     width: 350px;
-    cursor: pointer;
 }
-.spot-image{
-    height: 200px;
-    width: 350px;
-}
-.spot-card{
-    display: flex;
-    flex-direction: column;
-}
-.spot-locationrating{
+
+.spot-locationrating {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

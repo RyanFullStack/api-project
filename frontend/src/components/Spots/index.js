@@ -36,7 +36,7 @@ function Spots() {
                             <div>{spot.city}, {spot.state}</div>
                             <div><i className="fa-solid fa-star" key={spot.id}></i>{spot.avgRating.toFixed(1)}</div>
                         </div>
-                        <div className="spot-price">{spot.price}/night</div>
+                        <div className="spot-price">${spot.price} / night</div>
                     </div>
                     </Link>
                 )

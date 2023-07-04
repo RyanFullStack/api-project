@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import logo from '../../images/logo.png'
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -12,7 +13,7 @@ function Navigation({ isLoaded }) {
       <div>
         <ul>
           <li>
-            <NavLink exact to="/">Sleep-Me</NavLink>
+            <NavLink exact to="/"><img src={logo} alt='SleepMe' id='logo'/></NavLink>
           </li>
         </ul>
       </div>

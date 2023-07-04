@@ -1,0 +1,33 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    width: 25vw;
+    justify-content: center;
+    align-items: center;
+}
+.loginformbutton {
+    background-color: rgb(196, 246, 255);
+    border: 1px solid white;
+    border-radius: 6px;
+    margin: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 120px;
+}
+.loginerrors {
+    height: 40px;
+    text-align: center;
+    color: red;
+    font-size: 12px
+}
+.loginform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.loginform label {
+    margin: 10px;
+}

@@ -20,5 +20,8 @@
 
   #modal-content {
     position: absolute;
-    background-color: white;
+    background: rgb(255, 232, 155);
+    background: linear-gradient(0deg, rgb(255, 228, 177) 0%, rgb(160, 255, 250) 80%);
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
   }

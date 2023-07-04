@@ -1,1 +1,30 @@
-/* ADD STYLES */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 35vw;
+    justify-content: center;
+    align-items: center;
+}
+.formbutton {
+    background-color: rgb(196, 246, 255);
+    border: 1px solid white;
+    border-radius: 6px;
+    margin: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 120px;
+}
+.errors {
+    height: 30px;
+    text-align: center;
+    color: red;
+    font-size: 12px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
