@@ -19,9 +19,9 @@ router.get('/current', requireAuth, async (req, res, next) => {
             spotObj.Spot.previewImage = 'No Images'
 
 
-            spotObj.Spot.SpotImages.forEach(img => {
-                spotObj.Spot.previewImage = img.url
-            })
+            if (spotObj.Spot.SpotImages)
+                {spotObj.Spot.previewImage = spotObj.Spot.SpotImages[0].url}
+
             delete spotObj.Spot.SpotImages
             return spotObj
         }

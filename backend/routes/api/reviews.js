@@ -23,9 +23,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             spot.Spot.previewImage = 'No Images'
         }
         if (spot.ReviewImages.length) {
-            spot.ReviewImages.forEach(review => {
-                spot.Spot.previewImage = review.url
-            })
+            spot.Spot.previewImage = spot.ReviewImages[0].url
         }
     })
     return res.json({ Reviews: newData })
