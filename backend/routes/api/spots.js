@@ -23,11 +23,11 @@ router.get('/', async (req, res, next) => {
     if (maxPrice < 0) errors.maxPrice = 'Maximum price must be greater than or equal to 0'
 
     if (Object.keys(errors).length) {
-    const err = new Error()
-    err.status = 400
-    err.message = 'Bad Request'
-    err.errors = errors
-    return next(err)
+        const err = new Error()
+        err.status = 400
+        err.message = 'Bad Request'
+        err.errors = errors
+        return next(err)
     }
 
     if (!page || (page < 1 || page > 10)) page = 1;
@@ -44,19 +44,19 @@ router.get('/', async (req, res, next) => {
 
     const where = {}
 
-    if (minLat) where.lat = {[Op.gte]: minLat}
-    if (maxLat) where.lat = {[Op.lte]: maxLat}
-    if (minLat && maxLat) where.lat = {[Op.between]: [minLat, maxLat]}
-    if (minLng) where.lng = {[Op.gte]: minLng}
-    if (maxLng) where.lng = {[Op.lte]: maxLng}
-    if (minLng && maxLng) where.lng = {[Op.between]: [minLng, maxLng]}
-    if (minPrice) where.price = {[Op.gte]: minPrice}
-    if (maxPrice) where.price = {[Op.lte]: maxPrice}
-    if (minPrice && maxPrice) where.price = {[Op.between]: [minPrice, maxPrice]}
+    if (minLat) where.lat = { [Op.gte]: minLat }
+    if (maxLat) where.lat = { [Op.lte]: maxLat }
+    if (minLat && maxLat) where.lat = { [Op.between]: [minLat, maxLat] }
+    if (minLng) where.lng = { [Op.gte]: minLng }
+    if (maxLng) where.lng = { [Op.lte]: maxLng }
+    if (minLng && maxLng) where.lng = { [Op.between]: [minLng, maxLng] }
+    if (minPrice) where.price = { [Op.gte]: minPrice }
+    if (maxPrice) where.price = { [Op.lte]: maxPrice }
+    if (minPrice && maxPrice) where.price = { [Op.between]: [minPrice, maxPrice] }
 
 
     const spotsData = await Spot.findAll({
-        include: [{ model: SpotImage, attributes: ['url'] }, { model: Review, attributes: ['stars'] }],
+        include: [{ model: SpotImage, attributes: ['id', 'url'] }, { model: Review, attributes: ['stars'] }],
         where,
         ...pagination
     })
@@ -69,14 +69,19 @@ router.get('/', async (req, res, next) => {
 
         spotobj.previewImage = 'No Preview Image'
 
-        if (spotobj.SpotImages) {
-            spotobj.SpotImages.forEach((img => {
-                if (img.id === 1) {
-                    spotobj.previewImage = img.url
+        if (spotobj.SpotImages && spotobj.SpotImages.length > 0) {
+            let lowestId = spotobj.SpotImages[0].id;
+            let lowestImageUrl = spotobj.SpotImages[0].url;
+
+            spotobj.SpotImages.forEach(img => {
+                if (img.id < lowestId) {
+                    lowestId = img.id;
+                    lowestImageUrl = img.url;
                 }
-            }))
+            });
+
+            spotobj.previewImage = lowestImageUrl;
         }
-        console.log(spotobj)
 
         spotobj.Reviews.forEach(review => {
             sum += review.stars
@@ -88,8 +93,8 @@ router.get('/', async (req, res, next) => {
         return spotobj
     })
 
-    console.log(newData)
-    return res.json({Spots: newData, page, size})
+
+    return res.json({ Spots: newData, page, size })
 })
 
 
@@ -103,17 +108,24 @@ router.get('/current', requireAuth, async (req, res, next) => {
         let sum = 0;
         let count = 0;
 
-        const spotobj = spot.toJSON()
+        const spotobj = spot.toJSON();
+        spotobj.previewImage = 'No Preview Image';
 
-        spotobj.previewImage = 'No Preview Image'
+        if (spotobj.SpotImages && spotobj.SpotImages.length > 0) {
+            let lowestId = spotobj.SpotImages[0].id;
+            let lowestImageUrl = spotobj.SpotImages[0].url;
 
-        if (spotobj.SpotImages) {
-            spotobj.SpotImages.forEach((img => {
-                if (img.id === 1) {
-                    spotobj.previewImage = img.url
+            spotobj.SpotImages.forEach(img => {
+                if (img.id < lowestId) {
+                    lowestId = img.id;
+                    lowestImageUrl = img.url;
                 }
-            }))
+            });
+
+            spotobj.previewImage = lowestImageUrl;
         }
+
+
 
         spotobj.Reviews.forEach(review => {
             sum += review.stars
@@ -142,7 +154,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
             include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }, { model: ReviewImage, attributes: ['id', 'url'] }]
         })
 
-        return res.json({ Reviews: reviews })
+    return res.json({ Reviews: reviews })
 })
 
 
@@ -337,26 +349,26 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     }
 
     if (spot.ownerId != req.user.id) {
-    const { review, stars } = req.body
-    const errors = {}
-    if (!review) errors.review = 'Review text is required'
-    if (stars < 1 || stars > 5) errors.stars = 'Stars must be an integer from 1 to 5'
-    if (Object.keys(errors).length) {
-        const err = new Error()
-        err.status = 400,
-            err.message = 'Bad Request'
-        err.errors = errors
-        return next(err)
-    }
+        const { review, stars } = req.body
+        const errors = {}
+        if (!review) errors.review = 'Review text is required'
+        if (stars < 1 || stars > 5) errors.stars = 'Stars must be an integer from 1 to 5'
+        if (Object.keys(errors).length) {
+            const err = new Error()
+            err.status = 400,
+                err.message = 'Bad Request'
+            err.errors = errors
+            return next(err)
+        }
 
-    const newReview = await Review.create({
-        spotId: req.params.spotId,
-        userId: req.user.id,
-        review,
-        stars
-    })
-    res.status(201)
-    return res.json(newReview)
+        const newReview = await Review.create({
+            spotId: req.params.spotId,
+            userId: req.user.id,
+            review,
+            stars
+        })
+        res.status(201)
+        return res.json(newReview)
     } else {
         const err = new Error()
         err.title = `Can't review your own spot`
@@ -389,7 +401,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         if (Object.keys(errors).length) {
             const err = new Error()
             err.status = 400,
-            err.message = 'Bad Request'
+                err.message = 'Bad Request'
             err.errors = errors
             return next(err)
         }
@@ -416,22 +428,22 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 if (conflict) {
                     const err = new Error()
                     err.status = 403,
-                    err.message = 'Sorry, this spot is already booked for the specified dates'
+                        err.message = 'Sorry, this spot is already booked for the specified dates'
                     err.errors = errors
                     return next(err)
                 }
             })
         }
         if (!conflict) {
-        const newBooking = await Booking.create({
-            spotId: req.params.spotId,
-            userId: req.user.id,
-            startDate,
-            endDate
-        })
+            const newBooking = await Booking.create({
+                spotId: req.params.spotId,
+                userId: req.user.id,
+                startDate,
+                endDate
+            })
 
-        return res.json(newBooking)
-    }
+            return res.json(newBooking)
+        }
 
     } else {
         const err = new Error('Spot must not belong to you')
