@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Spots from "./components/Spots";
 import SpotDetail from "./components/SpotDetails";
+import CreateSpotForm from "./components/CreateSpot";
 import './index.css'
 
 function App() {
@@ -21,13 +22,19 @@ function App() {
         <div className="header"><Navigation isLoaded={isLoaded} />
           {isLoaded && <Switch></Switch>}</div>
         <Switch>
+
           <Route exact path='/'>
             <div className="spots"><Spots /></div>
+          </Route>
+
+          <Route exact path='/spots/new'>
+            <div className="create-spot"><CreateSpotForm /></div>
           </Route>
 
           <Route path='/spots/:spotId'>
             <div className='spot-detail'><SpotDetail /></div>
           </Route>
+
         </Switch>
       </div>
     </BrowserRouter>

@@ -43,6 +43,10 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  const redirectFunc = () => {
+    return history.push('/')
+  }
+
   return (
     <>
       <button onClick={openMenu} className='menubutton'>
@@ -63,7 +67,7 @@ function ProfileButton({ user }) {
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
+              modalComponent={<LoginFormModal redirectFunc={redirectFunc}/>}
             />
             <OpenModalMenuItem
               itemText="Sign Up"

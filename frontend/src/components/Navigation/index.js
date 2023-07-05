@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import logo from '../../images/logo.png'
 import './Navigation.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -17,7 +18,8 @@ function Navigation({ isLoaded }) {
           </li>
         </ul>
       </div>
-      <div>
+      <div className='header-right'>
+      {sessionUser ? <Link to='/spots/new'>Create a New Spot</Link> : null}
         <ul>
           {isLoaded && (
             <li>

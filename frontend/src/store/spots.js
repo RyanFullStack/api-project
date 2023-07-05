@@ -1,5 +1,8 @@
+import { csrfFetch } from "./csrf"
+
 export const GET_ALL_SPOTS = 'spots/GETALL'
 export const GET_SINGLE_SPOT = 'spots/GETONE'
+export const CREATE_SPOT = 'spots/NEW'
 
 export const getAllSpots = (spots) => {
     return {
@@ -15,6 +18,13 @@ export const getSingleSpot = (spot) => {
     }
 }
 
+export const createSpot = (spot) => {
+    return {
+        type: CREATE_SPOT,
+        spot
+    }
+}
+
 export const thunkGetAllSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots')
     const data = await res.json()
@@ -26,6 +36,19 @@ export const thunkGetSingleSpot = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}`)
     const data = await res.json()
     dispatch(getSingleSpot(data))
+    return data;
+}
+
+export const thunkCreateSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(spot)
+    })
+    const data = await res.json()
+    if (res.ok) {
+        dispatch(createSpot(data))
+    }
     return data;
 }
 
@@ -45,6 +68,11 @@ const spotReducer = (state = initialState, action) => {
             return newState
         }
         case GET_SINGLE_SPOT: {
+            const newState = {...state}
+            newState.singleSpot = action.spot
+            return newState
+        }
+        case CREATE_SPOT: {
             const newState = {...state}
             newState.singleSpot = action.spot
             return newState
