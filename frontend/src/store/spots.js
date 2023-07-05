@@ -40,10 +40,21 @@ export const thunkGetSingleSpot = (spotId) => async (dispatch) => {
 }
 
 export const thunkCreateSpot = (spot) => async (dispatch) => {
+    const {country, address, city, state, lat, lng, description, name, price} = spot
     const res = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(spot)
+        body: JSON.stringify({
+            country,
+            address,
+            city,
+            state,
+            lat,
+            lng,
+            description,
+            name,
+            price
+        })
     })
     const data = await res.json()
     if (res.ok) {
