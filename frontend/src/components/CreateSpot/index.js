@@ -62,8 +62,8 @@ function CreateSpotForm() {
                     address,
                     city,
                     state,
-                    lat: 90,
-                    lng: 90,
+                    lat,
+                    lng,
                     description,
                     title,
                     price
