@@ -124,7 +124,7 @@ module.exports = {
       },
       {
         spotId: 5,
-        url: 'https://www.spaceneedle.com/imager/assets/2125/az190903-0590_mob_4ee4e75fbc3d61709c6a11298686742d.jpg',
+        url: 'https://www.seattleattractions.com/wp-content/uploads/2016/04/seattle-space-needle-seattle-premier-attractions.jpg',
         preview: false
       },
       {
