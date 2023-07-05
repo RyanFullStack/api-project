@@ -67,11 +67,16 @@ router.get('/', async (req, res, next) => {
 
         const spotobj = spot.toJSON()
 
-        spotobj.previewImage = 'No Images'
+        spotobj.previewImage = 'No Preview Image'
 
         if (spotobj.SpotImages) {
-            spotobj.previewImage = spotobj.SpotImages[0].url
+            spotobj.SpotImages.forEach((img => {
+                if (img.id === 1) {
+                    spotobj.previewImage = img.url
+                }
+            }))
         }
+        console.log(spotobj)
 
         spotobj.Reviews.forEach(review => {
             sum += review.stars
@@ -83,7 +88,7 @@ router.get('/', async (req, res, next) => {
         return spotobj
     })
 
-
+    console.log(newData)
     return res.json({Spots: newData, page, size})
 })
 
@@ -91,7 +96,7 @@ router.get('/', async (req, res, next) => {
 router.get('/current', requireAuth, async (req, res, next) => {
     const spotsData = await Spot.findAll({
         where: { ownerId: req.user.id },
-        include: [{ model: SpotImage, attributes: ['url'] }, { model: Review, attributes: ['stars'] }]
+        include: [{ model: SpotImage, attributes: ['id', 'url'] }, { model: Review, attributes: ['stars'] }]
     })
 
     const newData = spotsData.map(spot => {
@@ -100,11 +105,16 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
         const spotobj = spot.toJSON()
 
-        spotobj.previewImage = 'No Images'
+        spotobj.previewImage = 'No Preview Image'
 
         if (spotobj.SpotImages) {
-            spotobj.previewImage = spotobj.SpotImages[0].url
+            spotobj.SpotImages.forEach((img => {
+                if (img.id === 1) {
+                    spotobj.previewImage = img.url
+                }
+            }))
         }
+
         spotobj.Reviews.forEach(review => {
             sum += review.stars
             count++
