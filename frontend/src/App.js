@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Spots from "./components/Spots";
 import SpotDetail from "./components/SpotDetails";
 import CreateSpotForm from "./components/CreateSpot";
+import ManageSpot from './components/ManageSpot'
 import './index.css'
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
 
           <Route exact path='/spots/new'>
             <div className="create-spot"><CreateSpotForm /></div>
+          </Route>
+
+          <Route exact path='/spots/manage'>
+            <div className="manage-spots"><ManageSpot /></div>
           </Route>
 
           <Route path='/spots/:spotId'>

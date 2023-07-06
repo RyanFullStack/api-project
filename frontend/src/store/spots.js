@@ -4,10 +4,19 @@ export const GET_ALL_SPOTS = 'spots/GETALL'
 export const GET_SINGLE_SPOT = 'spots/GETONE'
 export const CREATE_SPOT = 'spots/NEW'
 export const CREATE_SPOT_IMAGE = 'spot/NEWIMAGE'
+export const GET_USER_SPOTS = 'spots/GETUSER'
+export const DELETE_SPOT = 'spots/DELETE'
 
 export const getAllSpots = (spots) => {
     return {
         type: GET_ALL_SPOTS,
+        spots
+    }
+}
+
+export const getUserSpots = (spots) => {
+    return {
+        type: GET_USER_SPOTS,
         spots
     }
 }
@@ -33,10 +42,24 @@ export const createSpotImage = (image) => {
     }
 }
 
+export const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
+}
+
 export const thunkGetAllSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots')
     const data = await res.json()
     dispatch(getAllSpots(data))
+    return data;
+}
+
+export const thunkGetUserSpots = () => async (dispatch) => {
+    const res = await fetch('/api/spots/current')
+    const data = await res.json()
+    dispatch(getUserSpots(data))
     return data;
 }
 
@@ -59,6 +82,19 @@ export const thunkCreateSpotImage = (image) => async (dispatch) => {
     })
     const data = await resPreviewImage.json()
     return data;
+}
+
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        dispatch(deleteSpot(spotId))
+    } else {
+        const err = await res.json()
+            return err;
+    }
 }
 
 
@@ -106,6 +142,13 @@ const spotReducer = (state = initialState, action) => {
             })
             return newState
         }
+        case GET_USER_SPOTS: {
+            const newState = { allSpots:{}, singleSpot: {} }
+            action.spots.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
+            })
+            return newState
+        }
         case GET_SINGLE_SPOT: {
             const newState = { ...state }
             newState.singleSpot = action.spot
@@ -114,6 +157,11 @@ const spotReducer = (state = initialState, action) => {
         case CREATE_SPOT: {
             const newState = { ...state }
             newState.singleSpot = action.spot
+            return newState
+        }
+        case DELETE_SPOT: {
+            const newState = { ...state }
+            delete newState.allSpots[action.spotId]
             return newState
         }
         default:

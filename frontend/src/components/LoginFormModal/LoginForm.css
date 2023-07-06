@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .loginformbutton {
     background-color: rgb(67, 239, 252);
     border: 1px solid rgb(0, 0, 0);
@@ -16,12 +17,14 @@
     height: 30px;
     width: 120px;
 }
+
 .loginerrors {
     height: 40px;
     text-align: center;
     color: red;
     font-size: 12px
 }
+
 .loginform {
     display: flex;
     flex-direction: column;
@@ -29,6 +32,24 @@
     align-items: center;
     gap: 5px;
 }
+
 .loginform label {
     margin: 10px;
+}
+
+.spot-manage-buttons {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.delete-spot-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 30vh;
 }

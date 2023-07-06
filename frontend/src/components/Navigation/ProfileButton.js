@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import './Navigation.css'
 
 function ProfileButton({ user }) {
@@ -57,6 +57,7 @@ function ProfileButton({ user }) {
           <div className="menu-loggedin">
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
+            <li id='manage'><NavLink to='/spots/manage' onClick={closeMenu}>Manage Spots</NavLink></li>
             <li>
               <button onClick={logout} id='logout'>Log Out</button>
             </li>
