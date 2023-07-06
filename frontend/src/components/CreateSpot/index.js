@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { thunkCreateSpot } from '../../store/spots.js'
+import { thunkCreateSpot, thunkCreateSpotImage } from '../../store/spots.js'
 import './createspot.css'
 
 function CreateSpotForm() {
@@ -24,7 +24,8 @@ function CreateSpotForm() {
     const [errors, setErrors] = useState({});
 
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const errorObj = {};
@@ -37,6 +38,12 @@ function CreateSpotForm() {
         if (!name) errorObj.name = "Name is required";
         if (!price) errorObj.price = "Price is required";
         if (!previewImageUrl) errorObj.previewImageUrl = "Preview image is required";
+        // eslint-disable-next-line
+        if (parseInt(price) != price) errorObj.price = 'Price must be a number!'
+        // eslint-disable-next-line
+        if (parseInt(lat) != lat) errorObj.lat = 'Lat must be a number!'
+        // eslint-disable-next-line
+        if (parseInt(lng) != lng) errorObj.lng = 'Lat must be a number!'
 
         const wrongFileType = 'Image URL must end in .png, .jpg, or .jpeg'
 
@@ -56,31 +63,34 @@ function CreateSpotForm() {
             errorObj.imageUrl4 = wrongFileType
         }
 
+
         setErrors(errorObj)
 
 
-        if (!Object.keys(errors).length) {
-            console.log('before')
-            return dispatch(
-                thunkCreateSpot({
-                    country,
-                    address,
-                    city,
-                    state,
-                    lat,
-                    lng,
-                    description,
-                    name,
-                    price
-                })
-            ).then(res => {
-                history.push(`/spots/${res.id}`)
-            }).catch(async (res) => {
-                const data = await res.json()
-                if (data && data.errors) {
-                    setErrors(data.errors)
-                }
-            })
+        if (!Object.keys(errorObj).length) {
+
+            const spot = {
+                country,
+                address,
+                city,
+                state,
+                lat,
+                lng,
+                description,
+                name,
+                price
+            }
+            const res = await dispatch(thunkCreateSpot(spot))
+            if (res.errors) {
+                const err = res.errors
+                setErrors(err)
+                return
+            } else {
+                const id = res.id
+                dispatch(thunkCreateSpotImage({previewImageUrl, id}))
+                history.push(`/spots/${id}`)
+            }
+
         }
     }
 

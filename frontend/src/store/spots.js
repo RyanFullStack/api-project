@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf"
 export const GET_ALL_SPOTS = 'spots/GETALL'
 export const GET_SINGLE_SPOT = 'spots/GETONE'
 export const CREATE_SPOT = 'spots/NEW'
+export const CREATE_SPOT_IMAGE = 'spot/NEWIMAGE'
 
 export const getAllSpots = (spots) => {
     return {
@@ -25,6 +26,13 @@ export const createSpot = (spot) => {
     }
 }
 
+export const createSpotImage = (image) => {
+    return {
+        type: CREATE_SPOT_IMAGE,
+        image
+    }
+}
+
 export const thunkGetAllSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots')
     const data = await res.json()
@@ -39,11 +47,27 @@ export const thunkGetSingleSpot = (spotId) => async (dispatch) => {
     return data;
 }
 
+export const thunkCreateSpotImage = (image) => async (dispatch) => {
+    const { previewImageUrl, id } = image
+    const resPreviewImage = await csrfFetch(`/api/spots/${id}/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            url: previewImageUrl,
+            preview: true
+        })
+    })
+    const data = await resPreviewImage.json()
+    return data;
+}
+
+
 export const thunkCreateSpot = (spot) => async (dispatch) => {
-    const {country, address, city, state, lat, lng, description, name, price} = spot
+    const { country, address, city, state, lat, lng, description, name, price } = spot
+
     const res = await csrfFetch('/api/spots', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             country,
             address,
@@ -56,11 +80,15 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
             price
         })
     })
-    const data = await res.json()
+
     if (res.ok) {
+        const data = await res.json()
         dispatch(createSpot(data))
+        return data
+    } else {
+        const err = await res.json()
+        return err;
     }
-    return data;
 }
 
 
@@ -72,19 +100,19 @@ const initialState = {
 const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
-            const newState = {...state}
+            const newState = { ...state }
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
             return newState
         }
         case GET_SINGLE_SPOT: {
-            const newState = {...state}
+            const newState = { ...state }
             newState.singleSpot = action.spot
             return newState
         }
         case CREATE_SPOT: {
-            const newState = {...state}
+            const newState = { ...state }
             newState.singleSpot = action.spot
             return newState
         }

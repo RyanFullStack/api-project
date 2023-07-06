@@ -31,7 +31,7 @@ function Spots() {
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id}>
                     <div key={spot.id} className="spot-card" >
-                        <div key={spot.id}><img alt={spot.name} src={spot.previewImage} className="spot-image" key={spot.id}/></div>
+                        <div key={spot.id}><img alt={spot.name} src={spot.previewImage} title={spot.name} className="spot-image" key={spot.id}/></div>
                         <div className="spot-locationrating" >
                             <div>{spot.city}, {spot.state}</div>
                             <div><i className="fa-solid fa-star" key={spot.id}></i><span>{spot.avgRating?.toFixed(1) || `New`}</span></div>

@@ -52,22 +52,22 @@ function SpotDetail() {
                 )}
                 </div>
                 <div className="spot-images">
-                {url ? (
+                {url2 ? (
                     <img src={url2} alt={spot.name} />
                 ) : (
                     <div>Loading image...</div>
                 )}
-                {url2 ? (
+                {url3 ? (
                     <img src={url3} alt={spot.name} />
                 ) : (
                     <div>Loading image...</div>
                 )}
-                {url3 ? (
+                {url4 ? (
                     <img src={url4} alt={spot.name} />
                 ) : (
                     <div>Loading image...</div>
                 )}
-                {url4 ? (
+                {url5 ? (
                     <img src={url5} alt={spot.name} />
                 ) : (
                     <div>Loading image...</div>
@@ -95,7 +95,7 @@ function SpotDetail() {
                                 </div>
                         </div>
                         <div className="spot-reserve">
-                            <button id='reserve'>Reserve</button>
+                            <button id='reserve' onClick={()=>alert('Feature coming soon!')}>Reserve</button>
                         </div>
                     </div>
                 </div>
