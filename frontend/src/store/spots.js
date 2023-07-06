@@ -79,12 +79,12 @@ export const thunkGetSingleSpot = (spotId) => async (dispatch) => {
 }
 
 export const thunkCreateSpotImage = (image) => async (dispatch) => {
-    const { previewImageUrl, id } = image
+    const { url, id } = image
     const resPreviewImage = await csrfFetch(`/api/spots/${id}/images`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            url: previewImageUrl,
+            url,
             preview: true
         })
     })

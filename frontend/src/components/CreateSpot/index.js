@@ -50,16 +50,16 @@ function CreateSpotForm() {
         if (!previewImageUrl.endsWith('.jpg') && !previewImageUrl.endsWith('.jpeg') && !previewImageUrl.endsWith('.png')) {
             errorObj.previewImageUrl = wrongFileType
         }
-        if (imageUrl && (!imageUrl.endsWith('.jpg') || !imageUrl.endsWith('.jpeg') || !imageUrl.endsWith('.png'))) {
+        if (imageUrl && (!imageUrl.endsWith('.jpg') && !imageUrl.endsWith('.jpeg') && !imageUrl.endsWith('.png'))) {
             errorObj.imageUrl = wrongFileType
         }
-        if (imageUrl2 && (!imageUrl2.endsWith('.jpg') || !imageUrl2.endsWith('.jpeg') || !imageUrl2.endsWith('.png'))) {
+        if (imageUrl2 && (!imageUrl2.endsWith('.jpg') && !imageUrl2.endsWith('.jpeg') && !imageUrl2.endsWith('.png'))) {
             errorObj.imageUrl2 = wrongFileType
         }
-        if (imageUrl3 && (!imageUrl3.endsWith('.jpg') || !imageUrl3.endsWith('.jpeg') || !imageUrl3.endsWith('.png'))) {
+        if (imageUrl3 && (!imageUrl3.endsWith('.jpg') && !imageUrl3.endsWith('.jpeg') && !imageUrl3.endsWith('.png'))) {
             errorObj.imageUrl3 = wrongFileType
         }
-        if (imageUrl4 && (!imageUrl4.endsWith('.jpg') || !imageUrl4.endsWith('.jpeg') || !imageUrl4.endsWith('.png'))) {
+        if (imageUrl4 && (!imageUrl4.endsWith('.jpg') && !imageUrl4.endsWith('.jpeg') && !imageUrl4.endsWith('.png'))) {
             errorObj.imageUrl4 = wrongFileType
         }
 
@@ -87,11 +87,11 @@ function CreateSpotForm() {
                 return
             } else {
                 const id = res.id
-                if (previewImageUrl) dispatch(thunkCreateSpotImage({previewImageUrl, id}))
-                if (imageUrl) dispatch(thunkCreateSpotImage({imageUrl, id}))
-                if (imageUrl2) dispatch(thunkCreateSpotImage({imageUrl2, id}))
-                if (imageUrl3) dispatch(thunkCreateSpotImage({imageUrl3, id}))
-                if (imageUrl4) dispatch(thunkCreateSpotImage({imageUrl4, id}))
+                if (previewImageUrl) dispatch(thunkCreateSpotImage({url: previewImageUrl, id}))
+                if (imageUrl) dispatch(thunkCreateSpotImage({url: imageUrl, id}))
+                if (imageUrl2) dispatch(thunkCreateSpotImage({url: imageUrl2, id}))
+                if (imageUrl3) dispatch(thunkCreateSpotImage({url: imageUrl3, id}))
+                if (imageUrl4) dispatch(thunkCreateSpotImage({url: imageUrl4, id}))
                 history.push(`/spots/${id}`)
             }
 

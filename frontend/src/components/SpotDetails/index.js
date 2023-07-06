@@ -81,10 +81,10 @@ function SpotDetail() {
                                 <span>${price}</span> / night
                             </div>
                             <div className="star-review">
-                                <i className="fa-solid fa-star" key={spot.id}></i><span>{avgStarRating.toFixed(1) || `New`}</span>
+                                <i className="fa-solid fa-star" key={spot.id}></i><span>{(parseInt(avgStarRating.toFixed(1)) === 0) ? `New` : avgStarRating.toFixed(1)}</span>
                             </div>
                                 <div className="num-review">
-                                <span>{numReviews}</span> Reviews
+                                {numReviews === 1 ? `1 Review` : `${numReviews} Reviews`}
                                 </div>
                         </div>
                         <div className="spot-reserve">
@@ -94,7 +94,7 @@ function SpotDetail() {
                 </div>
             </div>
             <div className="spot-reviews-container">
-                <i className="fa-solid fa-star" key={spot.id}></i>{avgStarRating.toFixed(1) || `New`} {numReviews} Reviews
+                <i className="fa-solid fa-star" key={spot.id}></i>{(parseInt(avgStarRating.toFixed(1)) === 0) ? `New` : avgStarRating.toFixed(1)} {numReviews === 1 ? `1 Review` : `${numReviews} Reviews`}
             </div>
             {}
         </div>
