@@ -6,6 +6,7 @@ export const CREATE_SPOT = 'spots/NEW'
 export const CREATE_SPOT_IMAGE = 'spot/NEWIMAGE'
 export const GET_USER_SPOTS = 'spots/GETUSER'
 export const DELETE_SPOT = 'spots/DELETE'
+export const EDIT_SPOT = 'spots/EDIT'
 
 export const getAllSpots = (spots) => {
     return {
@@ -39,6 +40,13 @@ export const createSpotImage = (image) => {
     return {
         type: CREATE_SPOT_IMAGE,
         image
+    }
+}
+
+export const editSpot = (spot) => {
+    return {
+        type: EDIT_SPOT,
+        spot
     }
 }
 
@@ -82,6 +90,33 @@ export const thunkCreateSpotImage = (image) => async (dispatch) => {
     })
     const data = await resPreviewImage.json()
     return data;
+}
+
+export const thunkEditSpot = (spot, spotId) => async (dispatch) => {
+    const { country, address, city, state, lat, lng, description, name, price } = spot
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            country,
+            address,
+            city,
+            state,
+            lat,
+            lng,
+            description,
+            name,
+            price
+        })
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(editSpot(data))
+        return data
+    } else {
+        const err = await res.json()
+        return err
+    }
 }
 
 export const thunkDeleteSpot = (spotId) => async (dispatch) => {

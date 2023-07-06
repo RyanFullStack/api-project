@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "../DeleteSpotModal";
 import '../LoginFormModal/LoginForm.css'
+import { useHistory } from "react-router-dom";
 
 function ManageSpot() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [loading, setLoading] = useState(true);
 
     const userSpots = useSelector(state => state.spots.allSpots)
@@ -41,7 +43,7 @@ function ManageSpot() {
                             <div className="spot-price-main"><span>${spot.price}</span> / night</div>
                         </Link>
                         <div className='spot-manage-buttons'>
-                           <div className="formbutton">UPDATE</div>
+                           <div className="formbutton" onClick={()=>history.push(`/spots/edit/${spot.id}`)}>UPDATE</div>
                            <div className="formbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteSpotModal spotid={spot.id}/>} /></div>
                         </div>
                     </div>

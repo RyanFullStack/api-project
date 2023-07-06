@@ -50,6 +50,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50vw;
-    height: 30vh;
+    padding: 20px;
+}
+#delete-buttons {
+    display: flex;
+    flex-direction: column;
+}
+#delete-buttons button {
+    width: 200px;
 }

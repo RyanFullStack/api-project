@@ -87,7 +87,11 @@ function CreateSpotForm() {
                 return
             } else {
                 const id = res.id
-                dispatch(thunkCreateSpotImage({previewImageUrl, id}))
+                if (previewImageUrl) dispatch(thunkCreateSpotImage({previewImageUrl, id}))
+                if (imageUrl) dispatch(thunkCreateSpotImage({imageUrl, id}))
+                if (imageUrl2) dispatch(thunkCreateSpotImage({imageUrl2, id}))
+                if (imageUrl3) dispatch(thunkCreateSpotImage({imageUrl3, id}))
+                if (imageUrl4) dispatch(thunkCreateSpotImage({imageUrl4, id}))
                 history.push(`/spots/${id}`)
             }
 
