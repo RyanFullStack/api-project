@@ -52,26 +52,19 @@ function SpotDetail() {
                 )}
                 </div>
                 <div className="spot-images">
+
                 {url2 ? (
                     <img src={url2} alt={spot.name} />
-                ) : (
-                    <div>Loading image...</div>
-                )}
+                ) : null}
                 {url3 ? (
                     <img src={url3} alt={spot.name} />
-                ) : (
-                    <div>Loading image...</div>
-                )}
+                ) : null}
                 {url4 ? (
                     <img src={url4} alt={spot.name} />
-                ) : (
-                    <div>Loading image...</div>
-                )}
+                ) : null}
                 {url5 ? (
                     <img src={url5} alt={spot.name} />
-                ) : (
-                    <div>Loading image...</div>
-                )}
+                ) : null}
                 </div>
             </div>
             <div className="spot-detail-info">
