@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf"
 
 const GET_SPOT_REVIEWS = 'spotreviews/GET'
 const ADD_REVIEW = 'spotreviews/ADD'
+const DELETE_REVIEW = 'spotreviews/DELETE'
 
 export const getSpotReviews = (reviews) => {
     return {
@@ -18,6 +19,13 @@ export const addSpotReview = (review, sessionUser) => {
     }
 }
 
+export const deleteSpotReview = (reviewId) => {
+    return {
+        type: DELETE_REVIEW,
+        reviewId
+    }
+}
+
 export const thunkAddReview = ({review, spotId, sessionUser}) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
@@ -27,6 +35,21 @@ export const thunkAddReview = ({review, spotId, sessionUser}) => async (dispatch
     if (res.ok) {
         const data = await res.json()
         dispatch(addSpotReview(data, sessionUser))
+        return data;
+    } else {
+        const err = await res.json()
+        return err;
+    }
+}
+
+export const thunkDeleteReview = (reviewId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        const data = await res.json
+        dispatch(deleteSpotReview(reviewId))
         return data;
     } else {
         const err = await res.json()
@@ -67,6 +90,11 @@ const reviewsReducer = (state = initialState, action) => {
             firstName: action.sessionUser.firstName,
             lastName: action.sessionUser.lastName
         }
+        return newState
+      }
+      case DELETE_REVIEW: {
+        const newState = {...state, spot: {...state.spot}}
+        delete newState.spot[action.reviewId]
         return newState
       }
       // eslint-disable-next-line

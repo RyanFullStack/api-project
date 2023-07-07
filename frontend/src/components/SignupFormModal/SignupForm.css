@@ -16,6 +16,7 @@
     height: 30px;
     width: 120px;
     text-align: center;
+    list-style: none;
 }
 .formbuttontwo {
     background-color: rgb(67, 239, 252);

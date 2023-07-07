@@ -37,12 +37,12 @@ a {
     font-size: 16px;
     margin-bottom: 10px;
 }
-.spot-card {
-    /* border: 1px solid blue; */
+/* .spot-card {
+    border: 1px solid blue;
 }
 .spot-locationrating {
-    /* border: 1px solid red; */
-}
+    border: 1px solid red;
+} */
 .spot-detail-info{
     display: flex;
     flex-direction: row;

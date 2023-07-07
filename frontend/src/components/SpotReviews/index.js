@@ -4,6 +4,7 @@ import { thunkGetSpotReviews } from "../../store/reviews";
 import { useEffect, useState } from "react";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import PostReviewModal from "../ReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal";
 
 function SpotReviews() {
     const dispatch = useDispatch()
@@ -36,10 +37,10 @@ function SpotReviews() {
                     <h3>{review.User.firstName}</h3>
                     {review.createdAt.split('T')[0].split('-')[1]}/{review.createdAt.split('T')[0].split('-')[0]}
                     <p>{review.review}</p>
+                    <div className="formbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteReviewModal reviewId={review.id}/>} /></div>
                     </div>
                 )
             })}
-
         </div>
     )
 }
