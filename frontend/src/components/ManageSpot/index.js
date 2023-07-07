@@ -4,8 +4,8 @@ import { thunkGetUserSpots } from "../../store/spots";
 import { Link } from "react-router-dom";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "../DeleteSpotModal";
-import '../LoginFormModal/LoginForm.css'
 import { useHistory } from "react-router-dom";
+import '../LoginFormModal/LoginForm.css'
 
 function ManageSpot() {
     const dispatch = useDispatch()

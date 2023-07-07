@@ -1,4 +1,7 @@
+import { csrfFetch } from "./csrf"
+
 const GET_SPOT_REVIEWS = 'spotreviews/GET'
+const ADD_REVIEW = 'spotreviews/ADD'
 
 export const getSpotReviews = (reviews) => {
     return {
@@ -7,7 +10,28 @@ export const getSpotReviews = (reviews) => {
     }
 }
 
+export const addSpotReview = (review) => {
+    return {
+        type: ADD_REVIEW,
+        review
+    }
+}
 
+export const thunkAddReview = ({review, spotId}) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(review)
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(addSpotReview(data))
+        return data;
+    } else {
+        const err = await res.json()
+        return err;
+    }
+}
 
 export const thunkGetSpotReviews = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}/reviews`)
@@ -34,6 +58,12 @@ const reviewsReducer = (state = initialState, action) => {
         })
         return newState;
       }
+      case ADD_REVIEW: {
+        const newState = {...state, spot: {...state.spot}}
+        newState.spot[action.review.id] = action.review;
+        return newState
+      }
+      // eslint-disable-next-line
         default:
             return state;
     }

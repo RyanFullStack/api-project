@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkGetSpotReviews } from "../../store/reviews";
 import { useEffect, useState } from "react";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import PostReviewModal from "../ReviewModal";
 
 function SpotReviews() {
     const dispatch = useDispatch()
@@ -10,7 +12,6 @@ function SpotReviews() {
 
     const reviews = useSelector(state => state.reviews.spot)
     const revArr = Object.values(reviews)
-    console.log(revArr)
 
     useEffect(() => {
         dispatch(thunkGetSpotReviews(spotId))
@@ -28,16 +29,16 @@ function SpotReviews() {
 
     return (
         <div className="spot-reviews">
+            <div className="formbuttontwo"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal spotId={spotId}/>} /></div>
             {revArr.map(review => {
                 return (
-                    <div>
+                    <div key={review.id}>
                     <h3>{review.User.firstName}</h3>
                     {review.createdAt.split('T')[0].split('-')[1]}/{review.createdAt.split('T')[0].split('-')[0]}
                     <p>{review.review}</p>
                     </div>
                 )
             })}
-
 
         </div>
     )

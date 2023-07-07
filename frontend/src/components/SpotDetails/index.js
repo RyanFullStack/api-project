@@ -96,7 +96,6 @@ function SpotDetail() {
             <div className="spot-reviews-container">
                 <i className="fa-solid fa-star" key={spot.id}></i>{(parseInt(avgStarRating.toFixed(1)) === 0) ? `New` : avgStarRating.toFixed(1)} {numReviews === 1 ? `1 Review` : `${numReviews} Reviews`}
             </div>
-            {}
         </div>
     );
 }
