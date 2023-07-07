@@ -1,15 +1,20 @@
 import { useModal } from "../../context/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkDeleteReview } from "../../store/reviews";
 import './DeleteReviewModal.css'
+import { thunkGetSingleSpot } from "../../store/spots";
 
-function DeleteReviewModal({ reviewId }) {
+function DeleteReviewModal({ reviewId, setCanPost }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const handleSubmit = (e) => {
+    const spot = useSelector(state => state.spots.singleSpot)
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(thunkDeleteReview(reviewId))
+        await dispatch(thunkDeleteReview(reviewId))
+        await dispatch(thunkGetSingleSpot(spot.id))
+        setCanPost(true)
         closeModal()
     };
 

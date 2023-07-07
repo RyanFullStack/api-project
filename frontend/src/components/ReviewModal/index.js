@@ -4,11 +4,13 @@ import { useState } from "react";
 import { thunkAddReview } from "../../store/reviews";
 import { useSelector } from "react-redux";
 import './ReviewModal.css';
+import { thunkGetSingleSpot } from "../../store/spots";
 
 function PostReviewModal({ spotId }) {
     const [starRating, setStarRating] = useState();
     const [hoverRating, setHoverRating] = useState();
     const [reviewText, setReviewText] = useState('');
+    const [errors, setErrors] = useState('')
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -22,10 +24,10 @@ function PostReviewModal({ spotId }) {
         setHoverRating(null);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(thunkAddReview({
+        const res = await dispatch(thunkAddReview({
             review: {
                 review: reviewText,
                 stars: starRating
@@ -33,14 +35,21 @@ function PostReviewModal({ spotId }) {
             spotId: spotId,
             sessionUser
         }))
+        await dispatch(thunkGetSingleSpot(spotId))
+        if (!res.ok) {
+            setErrors(res.message)
+        }
+        if (res.createdAt) {
         closeModal()
+        }
     };
 
     return (
         <div className="post-review">
             <h1>How was your stay?</h1>
+            <div>{errors ? errors : null}</div>
             <textarea
-                placeholder="Leave your review here"
+                placeholder="Leave your review here..."
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
             />
@@ -62,7 +71,7 @@ function PostReviewModal({ spotId }) {
                 </div>
                 Stars
             </div>
-            <button className="formbuttontwo" onClick={handleSubmit} disabled={!reviewText || !starRating}>Submit Your Review</button>
+            <button className="formbuttontwo" onClick={handleSubmit} disabled={reviewText.length < 10 || !starRating}>Submit Your Review</button>
         </div>
     );
 }

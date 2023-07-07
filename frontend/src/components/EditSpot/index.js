@@ -161,7 +161,7 @@ function EditSpot() {
                             required />
                             {errors.price && <p>{errors.price}</p>}</div>
 
-                        <div><button type='submit' className='formbutton'>Update Spot</button></div>
+                        <div><button type='submit' className='formbutton'>Update Your Spot</button></div>
                     </form>
                 </div>
             </div>

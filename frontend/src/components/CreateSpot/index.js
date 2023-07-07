@@ -143,6 +143,7 @@ function CreateSpotForm() {
                     or parking, and what you love about the neighborhood.
                     <div><input type="textarea"
                         value={description}
+                        placeholder='Please write at least 30 characters'
                         onChange={(e) => setDescription(e.target.value)}
                         required />
                     {errors.description && <p>{errors.description}</p>}</div>
@@ -159,6 +160,7 @@ function CreateSpotForm() {
                     Competitve pricing can help your listing stand out and rank higher in search results.
                     <div><input type="text"
                         value={price}
+                        placeholder='Price per night (USD)'
                         onChange={(e) => setPrice(e.target.value)}
                         required />
                     {errors.price && <p>{errors.price}</p>}</div>
@@ -167,30 +169,35 @@ function CreateSpotForm() {
                     Submit a link to at least one photo to publish your spot.
                     <div><input type="text"
                         value={previewImageUrl}
+                        placeholder='Preview Image URL'
                         onChange={(e) => setPreviewImageUrl(e.target.value)}
                         required />
                     {errors.previewImageUrl && <p>{errors.previewImageUrl}</p>}</div>
 
                     <div><input type="text"
                         value={imageUrl}
+                        placeholder='Image URL'
                         onChange={(e) => setImageUrl(e.target.value)}
                     />
                     {errors.imageUrl && <p>{errors.imageUrl}</p>}</div>
 
                     <div><input type="text"
                         value={imageUrl2}
+                        placeholder='Image URL'
                         onChange={(e) => setImageUrl2(e.target.value)}
                     />
                     {errors.imageUrl2 && <p>{errors.imageUrl2}</p>}</div>
 
                     <div><input type="text"
                         value={imageUrl3}
+                        placeholder='Image URL'
                         onChange={(e) => setImageUrl3(e.target.value)}
                     />
                     {errors.imageUrl3 && <p>{errors.imageUrl3}</p>}</div>
 
                     <div><input type="text"
                         value={imageUrl4}
+                        placeholder='Image URL'
                         onChange={(e) => setImageUrl4(e.target.value)}
                     />
                     {errors.imageUrl4 && <p>{errors.imageUrl4}</p>}</div>

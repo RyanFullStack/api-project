@@ -9,7 +9,8 @@ import ReviewStats from "../ReviewStats";
 
 function SpotReviews() {
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
+    const [canPost, setCanPost] = useState(true)
     const { spotId } = useParams()
 
     const sessionUser = useSelector(state => state.session.user);
@@ -17,15 +18,31 @@ function SpotReviews() {
     const spot = useSelector((state) => state.spots.singleSpot);
 
     const reviews = useSelector(state => state.reviews.spot)
+
+
     const revArr = Object.values(reviews)
+
 
     useEffect(() => {
         dispatch(thunkGetSpotReviews(spotId))
-            .then(() => setLoading(false));
+            .then(() => setLoading(false))
         return function () {
             setLoading(true);
         };
     }, [dispatch, spotId]);
+
+    useEffect(() => {
+        revArr.forEach(review => {
+            if (review?.userId === sessionUser?.id) {
+                setCanPost(false)
+            } else {
+                setCanPost(true)
+            }
+            return function () {
+                setCanPost(true);
+            }
+        });
+    }, [dispatch, revArr, sessionUser, spotId]);
 
 
     if (loading) {
@@ -36,8 +53,9 @@ function SpotReviews() {
         return (
             <>
                 <ReviewStats />
-                {sessionUser && spot.Owner.id !== sessionUser.id ? <div className="formbuttontwo"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal spotId={spotId} />} /></div> : null}
-                <h3>Be the first to post a review!</h3>
+                {canPost && sessionUser && spot.Owner.id !== sessionUser.id ? <><div className="formbuttontwo"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal spotId={spotId} />} /></div>
+                    <h3>Be the first to post a review!</h3></>
+                    : null}
             </>
         )
     }
@@ -45,14 +63,14 @@ function SpotReviews() {
     return (
         <div className="spot-reviews">
             <ReviewStats />
-            {sessionUser && spot.Owner.id !== sessionUser.id ? <div className="formbuttontwo"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal spotId={spotId} />} /></div> : null}
+            {canPost && sessionUser && spot.Owner.id !== sessionUser.id ? <div className="formbuttontwo"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal spotId={spotId} />} /></div> : null}
             {revArr.sort((a, b) => b.id - a.id).map(review => {
                 return (
                     <div key={review.id}>
                         <h3>{review.User.firstName}</h3>
                         {review.createdAt.split('T')[0].split('-')[1]}/{review.createdAt.split('T')[0].split('-')[0]}
                         <p>{review.review}</p>
-                        {sessionUser?.id === review.User?.id ? <div className="formbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteReviewModal reviewId={review.id} />} /></div> : null}
+                        {sessionUser?.id === review.User?.id ? <div className="formbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteReviewModal reviewId={review.id} setCanPost={setCanPost} />} /></div> : null}
                     </div>
                 )
             })}

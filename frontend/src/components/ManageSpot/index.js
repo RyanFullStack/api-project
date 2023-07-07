@@ -30,6 +30,9 @@ function ManageSpot() {
     }
 
     return (
+        <>
+        <div><h2>Manage Spots</h2></div>
+        {!spotArr.length ? <Link to='/spots/new'>Create a New Spot</Link> : null}
         <div className="spots">
             {spotArr.map(spot => {
                 return (
@@ -50,6 +53,7 @@ function ManageSpot() {
                 )
             })}
         </div>
+        </>
     )
 }
 
