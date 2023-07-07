@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkGetSingleSpot } from "../../store/spots";
+import ReviewStats from "../ReviewStats";
 import './spotdetail.css';
 
 function SpotDetail() {
@@ -34,8 +35,6 @@ function SpotDetail() {
     const lastName = owner.lastName ?? "";
     const description = spot?.description ?? "";
     const price = spot?.price ?? 0;
-    const avgStarRating = spot?.avgStarRating ?? 0;
-    const numReviews = spot?.numReviews ?? 0;
 
     return (
         <div className="spot-details-container">
@@ -81,20 +80,14 @@ function SpotDetail() {
                                 <span>${price}</span> / night
                             </div>
                             <div className="star-review">
-                                <i className="fa-solid fa-star" key={spot.id}></i><span>{(parseInt(avgStarRating.toFixed(1)) === 0) ? `New` : avgStarRating.toFixed(1)}</span>
+                                <ReviewStats />
                             </div>
-                                <div className="num-review">
-                                {numReviews === 1 ? `1 Review` : `${numReviews} Reviews`}
-                                </div>
                         </div>
                         <div className="spot-reserve">
                             <button id='reserve' onClick={()=>alert('Feature coming soon!')}>Reserve</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="spot-reviews-container">
-                <i className="fa-solid fa-star" key={spot.id}></i>{(parseInt(avgStarRating.toFixed(1)) === 0) ? `New` : avgStarRating.toFixed(1)} {numReviews === 1 ? `1 Review` : `${numReviews} Reviews`}
             </div>
         </div>
     );
