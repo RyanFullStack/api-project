@@ -2,7 +2,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { thunkAddReview } from "../../store/reviews";
-import { thunkGetSpotReviews } from "../../store/reviews";
+import { useSelector } from "react-redux";
 import './ReviewModal.css';
 
 function PostReviewModal({ spotId }) {
@@ -11,6 +11,8 @@ function PostReviewModal({ spotId }) {
     const [reviewText, setReviewText] = useState('');
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+
+    const sessionUser = useSelector(state => state.session.user);
 
     const handleStarHover = (rating) => {
         setHoverRating(rating);
@@ -28,7 +30,8 @@ function PostReviewModal({ spotId }) {
                 review: reviewText,
                 stars: starRating
             },
-            spotId: spotId
+            spotId: spotId,
+            sessionUser
         }))
         closeModal()
     };
