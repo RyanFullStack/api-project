@@ -9,6 +9,7 @@ import SpotDetail from "./components/SpotDetails";
 import CreateSpotForm from "./components/CreateSpot";
 import ManageSpot from './components/ManageSpot'
 import EditSpot from "./components/EditSpot";
+import SpotReviews from "./components/SpotReviews";
 import './index.css'
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           </Route>
 
           <Route path='/spots/:spotId'>
-            <div className='spot-detail'><SpotDetail /></div>
+            <div className='spot-detail'><SpotDetail /><SpotReviews /></div>
           </Route>
 
         </Switch>
