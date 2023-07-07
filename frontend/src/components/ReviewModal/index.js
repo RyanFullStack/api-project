@@ -1,10 +1,11 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import './ReviewModal.css';
 import { thunkAddReview } from "../../store/reviews";
+import { thunkGetSpotReviews } from "../../store/reviews";
+import './ReviewModal.css';
 
-function PostReviewModal({spotId}) {
+function PostReviewModal({ spotId }) {
     const [starRating, setStarRating] = useState();
     const [hoverRating, setHoverRating] = useState();
     const [reviewText, setReviewText] = useState('');
@@ -29,7 +30,7 @@ function PostReviewModal({spotId}) {
             },
             spotId: spotId
         }))
-        .then(closeModal);
+        closeModal()
     };
 
     return (
