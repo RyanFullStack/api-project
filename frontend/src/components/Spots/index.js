@@ -26,7 +26,7 @@ function Spots() {
     }
 
     return (
-        <div className="spots">
+        <div className="spots-container">
             {spotsArr.map(spot => {
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id}>

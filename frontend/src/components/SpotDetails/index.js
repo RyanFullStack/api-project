@@ -3,18 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkGetSingleSpot } from "../../store/spots";
 import ReviewStats from "../ReviewStats";
+import SpotReviews from "../SpotReviews";
 import './spotdetail.css';
 
 function SpotDetail() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const { spotId } = useParams();
+    const [canPost, setCanPost] = useState(true)
 
     const spot = useSelector((state) => state.spots.singleSpot);
 
     useEffect(() => {
         dispatch(thunkGetSingleSpot(spotId))
             .then(() => setLoading(false));
+            setCanPost(true)
         return function () {
             setLoading(true);
         };
@@ -89,6 +92,7 @@ function SpotDetail() {
                     </div>
                 </div>
             </div>
+            <SpotReviews canPost={canPost} setCanPost={setCanPost}/>
         </div>
     );
 }

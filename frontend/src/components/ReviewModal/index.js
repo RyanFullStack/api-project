@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import './ReviewModal.css';
 import { thunkGetSingleSpot } from "../../store/spots";
 
-function PostReviewModal({ spotId }) {
+function PostReviewModal({ spotId, setCanPost }) {
     const [starRating, setStarRating] = useState();
     const [hoverRating, setHoverRating] = useState();
     const [reviewText, setReviewText] = useState('');
@@ -41,6 +41,7 @@ function PostReviewModal({ spotId }) {
         }
         if (res.createdAt) {
         closeModal()
+        setCanPost(false)
         }
     };
 
@@ -71,7 +72,7 @@ function PostReviewModal({ spotId }) {
                 </div>
                 Stars
             </div>
-            <button className="formbuttontwo" onClick={handleSubmit} disabled={reviewText.length < 10 || !starRating}>Submit Your Review</button>
+            <button className="reviewbutton" onClick={handleSubmit} disabled={reviewText.length < 10 || !starRating}>Submit Your Review</button>
         </div>
     );
 }

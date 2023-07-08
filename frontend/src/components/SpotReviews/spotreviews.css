@@ -1,0 +1,41 @@
+.spot-reviews {
+    display: flex;
+    flex-direction: column;
+}
+.rev-stats {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+}
+.reviewbutton {
+    background-color: rgb(67, 239, 252);
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 3px 3px 5px black;
+    border-radius: 6px;
+    cursor: pointer;
+    height: 30px;
+    width: 150px;
+    list-style: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+
+}
+.reviewbutton:hover {
+    background-color: rgb(0, 255, 255);
+}
+.review-item {
+    display: flex;
+    flex-direction: column;
+}
+.review-item h6 {
+    margin-top: -15px;
+}
+.review-item p {
+    margin-top: -15px;
+}

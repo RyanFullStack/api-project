@@ -1,8 +1,7 @@
 .spot-details-container {
-    margin: 2vh 2vw;
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    max-width: 1200px;
 }
 .spot-details-images {
     display: flex;
@@ -12,17 +11,17 @@
 .spot-images {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 400px;
+    height: 300px;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
 }
 .spot-main-image img{
-    width: 500px;
-    height: 400px;
+    width: 420px;
+    height: 350px;
 }
 .spot-images img {
-    width: 360px;
-    height: 195px;
+    width: 250px;
+    height: 170px;
 }
 a {
     text-decoration: none;
@@ -47,7 +46,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 1230px;
+    max-width: 1200px;
 }
 .spot-host {
     margin-top: 10px;
@@ -60,11 +59,14 @@ a {
     max-width: 600px;
     height: 80px;
     padding: 15px;
+    border: 2px solid black;
+    border-radius: 20px;
 }
 .spot-price {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    justify-content: space-between;
+    font-size: calc(6px + .6vw);
 }
 .star-review {
     display: flex;

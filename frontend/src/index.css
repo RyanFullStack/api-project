@@ -6,19 +6,14 @@ body {
 .wholepage {
     display: flex;
     flex-direction: column;
+    margin: 0;
     font-family: 'Montserrat', sans-serif;
+    align-items: center;
 }
 
 .header {
     background: rgb(255, 255, 255);
     background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(0, 238, 255) 100%);
-}
-
-.spots {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px;
-    gap: 20px;
-    max-width: 1600px;
+    margin: 0;
+    width: 100vw;
 }
