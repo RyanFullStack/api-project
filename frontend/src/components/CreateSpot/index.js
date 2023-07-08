@@ -41,9 +41,9 @@ function CreateSpotForm() {
         // eslint-disable-next-line
         if (Number(price) != price) errorObj.price = 'Price must be a number!'
         // eslint-disable-next-line
-        if (Number(lat) != lat) errorObj.lat = 'Lat must be a number!'
+        if (Number(lat) != lat) errorObj.lat = 'Latitude must be a number!'
         // eslint-disable-next-line
-        if (Number(lng) != lng) errorObj.lng = 'Lnt must be a number!'
+        if (Number(lng) != lng) errorObj.lng = 'Longitude must be a number!'
 
         const wrongFileType = 'Image URL must end in .png, .jpg, or .jpeg'
 
