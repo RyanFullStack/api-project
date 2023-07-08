@@ -17,19 +17,22 @@
     font-size: calc(6px + .6vh);
 }
 .manageformbutton {
-    background-color: rgb(67, 239, 252);
+    background-color: rgb(117, 239, 248);
     border: 1px solid rgb(0, 0, 0);
     box-shadow: 3px 3px 5px black;
     border-radius: 6px;
     margin: 5px;
     cursor: pointer;
-    height: 20px;
-    width: 70px;
+    height: 25px;
+    width: 90px;
     text-align: center;
     list-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.manageformbutton:hover {
+    background-color: rgb(10, 239, 255);
 }
 .manage-create {
     padding: 20px;

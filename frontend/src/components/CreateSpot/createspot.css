@@ -1,1 +1,53 @@
-/* TODO ADD STYLES */
+.create-spot-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.create-spot-form {
+    max-width: 400px;
+    margin-left: 20px;
+}
+.create-spot-form input {
+    width: 400px;
+    height: 20px;
+}
+.create-with-error {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25px;
+    margin-top: 2px;
+}
+.create-with-error p {
+    color: red;
+    font-size: 11px;
+    margin-left: 10px;
+}
+#description {
+    margin-top: 35px;
+    margin-bottom: 40px;
+}
+textarea {
+    resize: none;
+  }
+.createbutton {
+    background-color: rgb(117, 239, 248);
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 3px 3px 5px black;
+    border-radius: 6px;
+    margin: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 120px;
+    text-align: center;
+    list-style: none;
+}
+.createbutton:hover {
+    background-color: rgb(10, 239, 255);
+}
+#submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

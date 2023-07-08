@@ -26,18 +26,21 @@ useEffect(() => {
 }, [credential, password])
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.thunkStartSession({ credential, password }))
-      .then(closeModal).then(redirectFunc)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
-        }
-      });
+    const res = await dispatch(sessionActions.thunkStartSession({ credential, password }))
+    console.log(res)
+    if (res.user.id) {
+      closeModal()
+      redirectFunc()
+    } else {
+      const data = await res
+      if (data && data.errors) {
+        setErrors(data.errors);
+    }
   };
+}
 
   const demoLogin = () => {
     dispatch(sessionActions.thunkStartSession({credential: 'ReedE', password: 'password1'}))

@@ -28,7 +28,7 @@ export const thunkStartSession = (user) => async (dispatch) => {
     });
     const data = await res.json();
     dispatch(startSession(data.user));
-    return res;
+    return data;
 }
 
 export const signup = (user) => async (dispatch) => {
@@ -45,7 +45,7 @@ export const signup = (user) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(startSession(data.user));
-  return response;
+  return data;
 };
 
 export const logout = () => async (dispatch) => {

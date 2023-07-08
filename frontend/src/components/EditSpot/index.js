@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { thunkEditSpot } from '../../store/spots';
 import { thunkGetSingleSpot } from '../../store/spots';
 import { useSelector } from 'react-redux';
+import './editspot.css'
 
 
 function EditSpot() {
@@ -97,40 +98,40 @@ function EditSpot() {
     if (userId === ownerId) {
 
         return (
-            <div className='create-spot-container'>
-                <div className='create-spot-form'>
+            <div className='edit-spot-container'>
+                <div className='edit-spot-form'>
                     <h1>Update your spot</h1>
 
                     <form onSubmit={handleSubmit}>
                         <h3>Where's your place located?</h3>
                         Guests will only receive your exact address once they have completed a booking.
 
-                        <div>Country {errors.country && <p>{errors.country}</p>}</div>
+                        <div className='create-with-error'>Country {errors.country && <p>{errors.country}</p>}</div>
                         <input type="text"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                             required />
-                        <div>Street Address {errors.address && <p>{errors.address}</p>}</div>
+                        <div className='create-with-error'>Street Address {errors.address && <p>{errors.address}</p>}</div>
                         <input type="text"
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             required />
-                        <div>City {errors.city && <p>{errors.city}</p>}</div>
+                        <div className='create-with-error'>City {errors.city && <p>{errors.city}</p>}</div>
                         <input type="text"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             required />
-                        <div>State {errors.state && <p>{errors.state}</p>}</div>
+                        <div className='create-with-error'>State {errors.state && <p>{errors.state}</p>}</div>
                         <input type="text"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
                             required />
-                        <div>Latitude {errors.lat && <p>{errors.lat}</p>}</div>
+                        <div className='create-with-error'>Latitude {errors.lat && <p>{errors.lat}</p>}</div>
                         <input type="text"
                             value={lat}
                             onChange={(e) => setLat(e.target.value)}
                             required />
-                        <div>Longitude {errors.lng && <p>{errors.lng}</p>}</div>
+                        <div className='create-with-error'>Longitude {errors.lng && <p>{errors.lng}</p>}</div>
                         <input type="text"
                             value={lng}
                             onChange={(e) => setLng(e.target.value)}
@@ -139,29 +140,33 @@ function EditSpot() {
                         <h3>Describe your place to guests</h3>
                         Mention the best features of your space, any special amentities like fast wifi
                         or parking, and what you love about the neighborhood.
-                        <div><input type="textarea"
+                        <div className='create-with-error' id='description'><textarea
+                            rows='5'
+                            cols='52'
                             value={description}
+                            placeholder='Please write at least 30 characters'
                             onChange={(e) => setDescription(e.target.value)}
-                            required />
-                            {errors.description && <p>{errors.description}</p>}</div>
+                            required /></div>
+                        <div className='create-with-error'>{errors.description && <p>{errors.description}</p>}</div>
 
                         <h3>Create a title for your spot</h3>
                         Catch guests' attention with a spot title that highlights what makes your place special.
-                        <div><input type="text"
+                        <div className='create-with-error'><input type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            required />
-                            {errors.name && <p>{errors.name}</p>}</div>
+                            required /></div>
+                        <div className='create-with-error'>{errors.name && <p>{errors.name}</p>}</div>
 
                         <h3>Set a base price for your spot</h3>
                         Competitve pricing can help your listing stand out and rank higher in search results.
-                        <div><input type="text"
+                        <div className='create-with-error'><input type="text"
                             value={price}
+                            placeholder='Price per night (USD)'
                             onChange={(e) => setPrice(e.target.value)}
-                            required />
-                            {errors.price && <p>{errors.price}</p>}</div>
+                            required /></div>
+                        <div className='create-with-error'>{errors.price && <p>{errors.price}</p>}</div>
 
-                        <div><button type='submit' className='formbutton'>Update Your Spot</button></div>
+                        <div id='submit'><button type='submit' className='updatebutton'>Update Your Spot</button></div>
                     </form>
                 </div>
             </div>
