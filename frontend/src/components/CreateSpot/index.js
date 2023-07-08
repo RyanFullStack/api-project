@@ -86,11 +86,11 @@ function CreateSpotForm() {
                 setErrors(err)
             } else {
                 const id = res.id
-                if (previewImageUrl) dispatch(thunkCreateSpotImage({ url: previewImageUrl, id }))
-                if (imageUrl) dispatch(thunkCreateSpotImage({ url: imageUrl, id }))
-                if (imageUrl2) dispatch(thunkCreateSpotImage({ url: imageUrl2, id }))
-                if (imageUrl3) dispatch(thunkCreateSpotImage({ url: imageUrl3, id }))
-                if (imageUrl4) dispatch(thunkCreateSpotImage({ url: imageUrl4, id }))
+                if (previewImageUrl) await dispatch(thunkCreateSpotImage({ url: previewImageUrl, id }))
+                if (imageUrl) await dispatch(thunkCreateSpotImage({ url: imageUrl, id }))
+                if (imageUrl2) await dispatch(thunkCreateSpotImage({ url: imageUrl2, id }))
+                if (imageUrl3) await dispatch(thunkCreateSpotImage({ url: imageUrl3, id }))
+                if (imageUrl4) await dispatch(thunkCreateSpotImage({ url: imageUrl4, id }))
                 history.push(`/spots/${id}`)
             }
 
