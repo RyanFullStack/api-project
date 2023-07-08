@@ -31,13 +31,15 @@ useEffect(() => {
     setErrors({});
     const res = await dispatch(sessionActions.thunkStartSession({ credential, password }))
     console.log(res)
-    if (res.user.id) {
+
+    if (res.user) {
       closeModal()
       redirectFunc()
     } else {
       const data = await res
+
       if (data && data.errors) {
-        setErrors(data.errors);
+        return setErrors(data.errors);
     }
   };
 }
