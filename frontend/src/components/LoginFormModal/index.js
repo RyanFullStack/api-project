@@ -30,7 +30,7 @@ useEffect(() => {
     e.preventDefault();
     setErrors({});
     const res = await dispatch(sessionActions.thunkStartSession({ credential, password }))
-    console.log(res)
+   
 
     if (res.user) {
       closeModal()
