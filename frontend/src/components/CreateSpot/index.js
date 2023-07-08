@@ -39,11 +39,11 @@ function CreateSpotForm() {
         if (!price) errorObj.price = "Price is required";
         if (!previewImageUrl) errorObj.previewImageUrl = "Preview image is required";
         // eslint-disable-next-line
-        if (parseInt(price) != price) errorObj.price = 'Price must be a number!'
+        if (Number(price) != price) errorObj.price = 'Price must be a number!'
         // eslint-disable-next-line
-        if (parseInt(lat) != lat) errorObj.lat = 'Lat must be a number!'
+        if (Number(lat) != lat) errorObj.lat = 'Lat must be a number!'
         // eslint-disable-next-line
-        if (parseInt(lng) != lng) errorObj.lng = 'Lnt must be a number!'
+        if (Number(lng) != lng) errorObj.lng = 'Lnt must be a number!'
 
         const wrongFileType = 'Image URL must end in .png, .jpg, or .jpeg'
 
