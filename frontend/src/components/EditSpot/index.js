@@ -62,7 +62,11 @@ function EditSpot() {
         if (!description || description.length < 30) errorObj.description = "Description needs 30 or more characters";
         if (!name) errorObj.name = "Name is required";
         if (!price) errorObj.price = "Price is required";
-
+        if (parseInt(price) != price) errorObj.price = 'Price must be a number!'
+        // eslint-disable-next-line
+        if (parseInt(lat) != lat) errorObj.lat = 'Lat must be a number!'
+        // eslint-disable-next-line
+        if (parseInt(lng) != lng) errorObj.lng = 'Lnt must be a number!'
 
         setErrors(errorObj)
 

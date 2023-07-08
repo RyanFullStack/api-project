@@ -43,7 +43,7 @@ function CreateSpotForm() {
         // eslint-disable-next-line
         if (parseInt(lat) != lat) errorObj.lat = 'Lat must be a number!'
         // eslint-disable-next-line
-        if (parseInt(lng) != lng) errorObj.lng = 'Lat must be a number!'
+        if (parseInt(lng) != lng) errorObj.lng = 'Lnt must be a number!'
 
         const wrongFileType = 'Image URL must end in .png, .jpg, or .jpeg'
 
