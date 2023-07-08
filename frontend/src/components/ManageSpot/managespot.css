@@ -6,6 +6,7 @@
     max-width: 1000px;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 .spot-manage-card {
     display: flex;
