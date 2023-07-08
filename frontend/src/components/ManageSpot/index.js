@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "../DeleteSpotModal";
 import { useHistory } from "react-router-dom";
-import '../LoginFormModal/LoginForm.css'
+import './managespot.css'
 
 function ManageSpot() {
     const dispatch = useDispatch()
@@ -31,12 +31,12 @@ function ManageSpot() {
 
     return (
         <>
-        <div><h2>Manage Spots</h2></div>
-        {!spotArr.length ? <Link to='/spots/new'>Create a New Spot</Link> : null}
-        <div className="spots">
+        <div id='manage-title'><h2>Manage Spots</h2></div>
+        {!spotArr.length ? <div className='manage-create' onClick={()=>history.push('/spots/new')}>Create a New Spot</div> : null}
+        <div className="spots-manager">
             {spotArr.map(spot => {
                 return (
-                    <div key={spot.id} className="spot-card" >
+                    <div key={spot.id} className="spot-manage-card" >
                         <Link to={`/spots/${spot.id}`} key={spot.id}>
                             <div key={spot.id}><img alt={spot.name} src={spot.previewImage} title={spot.name} className="spot-image" key={spot.id} /></div>
                             <div className="spot-locationrating" >
@@ -46,8 +46,8 @@ function ManageSpot() {
                             <div className="spot-price-main"><span>${spot.price}</span> / night</div>
                         </Link>
                         <div className='spot-manage-buttons'>
-                           <div className="formbutton" onClick={()=>history.push(`/spots/edit/${spot.id}`)}>UPDATE</div>
-                           <div className="formbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteSpotModal spotid={spot.id}/>} /></div>
+                           <div className="manageformbutton" onClick={()=>history.push(`/spots/edit/${spot.id}`)}>UPDATE</div>
+                           <div className="manageformbutton"><OpenModalMenuItem itemText='DELETE' modalComponent={<DeleteSpotModal spotid={spot.id}/>} /></div>
                         </div>
                     </div>
                 )

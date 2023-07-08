@@ -92,6 +92,7 @@ function SpotDetail() {
                     </div>
                 </div>
             </div>
+            <div id='separate'></div>
             <SpotReviews canPost={canPost} setCanPost={setCanPost}/>
         </div>
     );
