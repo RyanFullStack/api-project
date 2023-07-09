@@ -60,6 +60,7 @@ function EditSpot() {
         if (!city) errorObj.city = "City is required";
         if (!state) errorObj.state = "State is required";
         if (!description || description.length < 30) errorObj.description = "Description needs 30 or more characters";
+        if (description && description.length > 255) errorObj.description = "Description max length is 255 characters";
         if (!name) errorObj.name = "Name is required";
         if (!price) errorObj.price = "Price is required";
         // eslint-disable-next-line
