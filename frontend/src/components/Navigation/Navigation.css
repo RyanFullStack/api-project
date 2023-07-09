@@ -74,6 +74,7 @@ li a {
 }
 #logout:hover {
     background-color: rgb(10, 239, 255);
+    cursor: pointer;
 }
 
 #logo {
