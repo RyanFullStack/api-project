@@ -87,6 +87,7 @@ function CreateSpotForm() {
                 const err = res.errors
                 setErrors(err)
             } else {
+                if (res.id) {
                 const id = res.id
                 if (previewImageUrl) await dispatch(thunkCreateSpotImage({ url: previewImageUrl, id }))
                 if (imageUrl) await dispatch(thunkCreateSpotImage({ url: imageUrl, id }))
@@ -94,6 +95,7 @@ function CreateSpotForm() {
                 if (imageUrl3) await dispatch(thunkCreateSpotImage({ url: imageUrl3, id }))
                 if (imageUrl4) await dispatch(thunkCreateSpotImage({ url: imageUrl4, id }))
                 history.push(`/spots/${id}`)
+                }
             }
 
         }

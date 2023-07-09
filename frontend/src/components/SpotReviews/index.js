@@ -57,7 +57,7 @@ function SpotReviews({canPost, setCanPost}) {
         return (
             <>
                 <ReviewStats />
-                {canPost && sessionUser && spot.Owner.id !== sessionUser.id ? <><div className="reviewbutton"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal setCanPost={setCanPost} spotId={spotId} />} /></div>
+                {canPost && sessionUser && spot.Owner?.id !== sessionUser?.id ? <><div className="reviewbutton"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal setCanPost={setCanPost} spotId={spotId} />} /></div>
                     <h3>Be the first to post a review!</h3></>
                     : null}
             </>
@@ -67,7 +67,7 @@ function SpotReviews({canPost, setCanPost}) {
     return (
         <div className="spot-reviews">
             <div className="rev-stats"><ReviewStats />
-            {canPost && sessionUser && spot.Owner.id !== sessionUser.id ? <div className="reviewbutton"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal setCanPost={setCanPost} spotId={spotId} />} /></div> : null}</div>
+            {canPost && sessionUser && spot.Owner?.id !== sessionUser?.id ? <div className="reviewbutton"><OpenModalMenuItem itemText='Post Your Review' modalComponent={<PostReviewModal setCanPost={setCanPost} spotId={spotId} />} /></div> : null}</div>
             {revArr.sort((a, b) => b.id - a.id).map(review => {
                 return (
                     <div key={review.id} className="review-item">
