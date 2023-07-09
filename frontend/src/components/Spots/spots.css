@@ -34,6 +34,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    max-width: 200px;
+}
+.spot-city-state {
+    max-width: 165px;
+    overflow: hidden;
 }
 span {
     font-weight: bold;

@@ -40,7 +40,7 @@ function ManageSpot() {
                         <Link to={`/spots/${spot.id}`} key={spot.id}>
                             <div key={spot.id}><img alt={spot.name} src={spot.previewImage} title={spot.name} className="spot-image" key={spot.id} /></div>
                             <div className="spot-locationrating" >
-                                <div>{spot.city}, {spot.state}</div>
+                                <div className="spot-city-state">{spot.city}, {spot.state}</div>
                                 <div><i className="fa-solid fa-star" key={spot.id}></i><span>{spot.avgRating?.toFixed(1) || `New`}</span></div>
                             </div>
                             <div className="spot-price-main"><span>${spot.price}</span> / night</div>
