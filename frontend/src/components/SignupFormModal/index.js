@@ -18,17 +18,10 @@ function SignupFormModal() {
 
 
   useEffect(() => {
-    if (!email || !username || !firstName || ! lastName || !password || !confirmPassword) {
-      setDisabled(true)
-    }
-    if (username.length < 4 || password.length < 6) {
+    if (username.length < 4 || password.length < 6 || !email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
       setDisabled(true)
     }
     else {
-      setDisabled(false)
-    }
-
-    return function() {
       setDisabled(false)
     }
 
