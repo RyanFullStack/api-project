@@ -94,8 +94,10 @@ function EditSpot() {
                 setErrors(err)
                 return
             } else {
+                if (res.id) {
                 const id = res.id
                 history.push(`/spots/${id}`)
+                }
             }
 
         }
