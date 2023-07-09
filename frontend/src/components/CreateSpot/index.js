@@ -41,6 +41,8 @@ function CreateSpotForm() {
         // eslint-disable-next-line
         if (Number(price) != price) errorObj.price = 'Price must be a number!'
         // eslint-disable-next-line
+        if (Number(price) < 1) errorObj.price = 'Price must be positive!'
+        // eslint-disable-next-line
         if (Number(lat) != lat) errorObj.lat = 'Latitude must be a number!'
         // eslint-disable-next-line
         if (Number(lng) != lng) errorObj.lng = 'Longitude must be a number!'
